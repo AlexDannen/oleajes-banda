@@ -92,8 +92,8 @@ export default function Shows() {
                     sizes="(max-width: 768px) 256px, 320px"
                   />
 
-                  {/* Siluetas de público - aparecen al scrollear a la sección */}
-                  <div className={`absolute bottom-0 left-0 right-0 h-32 transition-transform duration-700 ease-out pointer-events-none ${isUpcomingVisible ? 'translate-y-[25%]' : 'translate-y-full'}`}>
+                  {/* Siluetas de público - aparecen al scrollear a la sección con delay */}
+                  <div className={`absolute bottom-0 left-0 right-0 h-32 transition-transform duration-700 delay-500 ease-out pointer-events-none ${isUpcomingVisible ? 'translate-y-[25%]' : 'translate-y-full'}`}>
                     <Image
                       src="/images/crowd-silhouette.png"
                       alt="Público"

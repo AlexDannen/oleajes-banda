@@ -191,8 +191,8 @@ export default function Music() {
           <div className="group relative">
             <div className="absolute -inset-1 bg-gradient-to-r from-[#4a9ebb]/20 to-[#7ec8e3]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
 
-            {/* Vinilo móvil - aparece desde arriba al scrollear */}
-            <div className={`md:hidden absolute left-1/2 -translate-x-1/2 w-32 h-32 transition-all duration-700 ease-out z-20 pointer-events-none ${isMusicVisible ? '-top-12 opacity-100' : '-top-32 opacity-0'}`}>
+            {/* Vinilo móvil - se asoma desde la caja al scrollear */}
+            <div className={`md:hidden absolute left-1/2 -translate-x-1/2 w-32 h-32 transition-all duration-700 ease-out z-20 pointer-events-none ${isMusicVisible ? 'top-0 -translate-y-[60%] opacity-100' : 'top-0 translate-y-0 opacity-0'}`}>
               <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-[0_0_15px_rgba(74,158,187,0.4)]">
                 <circle cx="50" cy="50" r="48" fill="#1a1a1a" />
                 <circle cx="50" cy="50" r="48" fill="url(#vinylShineMobile)" />
