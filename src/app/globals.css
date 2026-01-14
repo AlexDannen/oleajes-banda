@@ -295,16 +295,14 @@ body::after {
   transition: clip-path 0s;
 }
 
+/* Animación en hover para desktop */
 .wave-text:hover .text-fill {
   animation: waveFill 1.8s ease-in-out forwards;
 }
 
-/* En dispositivos táctiles, la animación se repite automáticamente */
-@media (hover: none) {
-  .wave-text .text-fill {
-    animation: waveFill 2.5s ease-in-out infinite;
-    animation-delay: 1s;
-  }
+/* Animación activada por scroll (clase añadida por JS) */
+.wave-text.wave-animate .text-fill {
+  animation: waveFill 2s ease-in-out forwards;
 }
 
 @keyframes waveFill {

@@ -1,8 +1,26 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
 export default function Shows() {
+  const [isUpcomingVisible, setIsUpcomingVisible] = useState(false);
+  const upcomingRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsUpcomingVisible(entry.isIntersecting);
+      },
+      { threshold: 0.3 }
+    );
+
+    if (upcomingRef.current) {
+      observer.observe(upcomingRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
   // Próximas tocatas
   const upcomingShows = [
     {
@@ -50,7 +68,7 @@ export default function Shows() {
       </div>
 
       {/* PRÓXIMOS EVENTOS */}
-      <div className="max-w-4xl mx-auto mb-20">
+      <div ref={upcomingRef} className="max-w-4xl mx-auto mb-20">
         <h3 className="font-[family-name:var(--font-space)] text-[#4a9ebb] text-sm uppercase tracking-[0.2em] mb-8 text-center">
           ⚡ Próximos Eventos
         </h3>
@@ -74,8 +92,8 @@ export default function Shows() {
                     sizes="(max-width: 768px) 256px, 320px"
                   />
 
-                  {/* Siluetas de público - visibles en móvil, hover en desktop */}
-                  <div className="absolute bottom-0 left-0 right-0 h-32 translate-y-[10%] md:translate-y-full md:group-hover:translate-y-[10%] transition-transform duration-500 ease-out pointer-events-none">
+                  {/* Siluetas de público - aparecen al scrollear a la sección */}
+                  <div className={`absolute bottom-0 left-0 right-0 h-32 transition-transform duration-700 ease-out pointer-events-none ${isUpcomingVisible ? 'translate-y-[10%]' : 'translate-y-full'}`}>
                     <Image
                       src="/images/crowd-silhouette.png"
                       alt="Público"

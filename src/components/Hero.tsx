@@ -1,6 +1,27 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 
 export default function Hero() {
+  const [isVisible, setIsVisible] = useState(false);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.5 }
+    );
+
+    if (titleRef.current) {
+      observer.observe(titleRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
       id="inicio"
@@ -36,8 +57,8 @@ export default function Hero() {
         </p>
 
         {/* Título principal */}
-        <h1 className="font-[family-name:var(--font-brush)] text-6xl sm:text-8xl md:text-[12rem] tracking-wide mb-8 italic">
-          <span className="wave-text block drop-shadow-[0_0_30px_rgba(74,158,187,0.3)] text-[#c5d1de]" style={{ textShadow: '4px 4px 0px rgba(74,158,187,0.3), -2px -2px 0px rgba(126,200,227,0.2)' }}>
+        <h1 ref={titleRef} className="font-[family-name:var(--font-brush)] text-6xl sm:text-8xl md:text-[12rem] tracking-wide mb-8 italic">
+          <span className={`wave-text block drop-shadow-[0_0_30px_rgba(74,158,187,0.3)] text-[#c5d1de] ${isVisible ? 'wave-animate' : ''}`} style={{ textShadow: '4px 4px 0px rgba(74,158,187,0.3), -2px -2px 0px rgba(126,200,227,0.2)' }}>
             Oleajes
             <span className="text-fill" aria-hidden="true">Oleajes</span>
           </span>

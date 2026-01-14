@@ -39,7 +39,7 @@ export default function Navbar() {
             href="#inicio"
             className="font-[family-name:var(--font-playfair)] text-xl sm:text-2xl md:text-3xl font-bold tracking-wide text-[#c5d1de] glitch-hover"
           >
-            Rock Chileno
+            Oleajes
           </Link>
 
           {/* Desktop Navigation */}
