@@ -374,9 +374,9 @@ body::after {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255,255,255,0.3) 40%,
-    rgba(255,255,255,0.5) 50%,
-    rgba(255,255,255,0.3) 60%,
+    rgba(74,158,187,0.4) 40%,
+    rgba(74,158,187,0.6) 50%,
+    rgba(74,158,187,0.4) 60%,
     transparent 100%
   );
   animation: waveShine 4s ease-in-out infinite;
