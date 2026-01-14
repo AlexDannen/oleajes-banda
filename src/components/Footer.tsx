@@ -52,7 +52,7 @@ export default function Footer() {
           Oleajes
         </h2>
         <p className="font-mono text-[#4a9ebb] text-xs mb-8 neon-flicker">
-          // desde la ciudad sumergida
+          // de la ciudad sumergida
         </p>
 
         {/* Redes sociales */}
