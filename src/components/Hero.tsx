@@ -42,7 +42,7 @@ export default function Hero() {
         <div className="absolute inset-0 rain-effect" />
 
         {/* Líneas horizontales como reflejos en agua */}
-        <div className="absolute top-1/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#4a9ebb]/20 to-transparent" />
+        <div className="absolute top-1/3 md:top-[22%] left-0 w-full h-px bg-gradient-to-r from-transparent via-[#4a9ebb]/20 to-transparent" />
         <div className="absolute top-2/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#4a9ebb]/10 to-transparent" />
       </div>
 
@@ -65,7 +65,7 @@ export default function Hero() {
         </h1>
 
         {/* Línea decorativa - como nivel del agua */}
-        <div className="flex items-center justify-center gap-4 mb-10">
+        <div className="flex items-center justify-center gap-4 mb-10 md:mt-10">
           <span className="w-20 h-px bg-gradient-to-r from-transparent to-[#4a9ebb]" />
           <span className="w-2 h-2 bg-[#4a9ebb] animate-pulse" />
           <span className="w-20 h-px bg-gradient-to-l from-transparent to-[#4a9ebb]" />
