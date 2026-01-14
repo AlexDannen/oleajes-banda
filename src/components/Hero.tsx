@@ -53,7 +53,7 @@ export default function Hero() {
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
         {/* Subtítulo superior */}
         <p className="font-[family-name:var(--font-space)] text-[#4a9ebb] text-xs sm:text-sm uppercase tracking-[0.15em] sm:tracking-[0.3em] mb-6 animate-fade-in-up neon-flicker">
-          Desde Santiago de Chile
+          De la ciudad sumergida
         </p>
 
         {/* Título principal */}
