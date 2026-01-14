@@ -93,7 +93,7 @@ export default function Shows() {
                   />
 
                   {/* Siluetas de público - aparecen al scrollear a la sección */}
-                  <div className={`absolute bottom-0 left-0 right-0 h-32 transition-transform duration-700 ease-out pointer-events-none ${isUpcomingVisible ? 'translate-y-[10%]' : 'translate-y-full'}`}>
+                  <div className={`absolute bottom-0 left-0 right-0 h-32 transition-transform duration-700 ease-out pointer-events-none ${isUpcomingVisible ? 'translate-y-[25%]' : 'translate-y-full'}`}>
                     <Image
                       src="/images/crowd-silhouette.png"
                       alt="Público"

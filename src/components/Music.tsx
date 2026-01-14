@@ -155,7 +155,7 @@ export default function Music() {
   };
 
   return (
-    <section id="musica" className="relative py-16 sm:py-24 md:py-32 px-4 bg-[#0d1520] overflow-hidden">
+    <section id="musica" className="relative py-16 sm:py-24 md:py-32 px-4 bg-[#0d1520]">
       {/* Efecto de agua en el fondo */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute inset-0 bg-gradient-to-b from-[#0a0c10] via-transparent to-[#1a2634]" />

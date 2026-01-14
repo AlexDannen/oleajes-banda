@@ -79,7 +79,7 @@ export default function Videos() {
   );
 
   return (
-    <section id="videos" className="relative py-16 sm:py-24 md:py-32 px-4 bg-[#0a0c10] overflow-hidden">
+    <section id="videos" className="relative py-16 sm:py-24 md:py-32 px-4 bg-[#0a0c10]">
       {/* Efecto de lluvia sutil */}
       <div className="absolute inset-0 rain-effect opacity-30" />
 
