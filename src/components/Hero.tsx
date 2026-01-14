@@ -80,13 +80,13 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
           <Link
             href="#musica"
-            className="group relative px-10 py-4 bg-[#4a9ebb] text-[#0a0c10] font-[family-name:var(--font-space)] font-semibold uppercase tracking-wider text-sm overflow-hidden transition-all duration-300 hover:bg-[#7ec8e3] hover:shadow-[0_0_30px_rgba(74,158,187,0.5)]"
+            className="btn-wave group relative px-10 py-4 bg-[#4a9ebb] text-[#0a0c10] font-[family-name:var(--font-space)] font-semibold uppercase tracking-wider text-sm transition-all duration-300 hover:bg-[#7ec8e3] hover:shadow-[0_0_30px_rgba(74,158,187,0.5)]"
           >
             <span className="relative z-10">Escuchar</span>
           </Link>
           <Link
             href="#tocatas"
-            className="group relative px-10 py-4 bg-transparent border-2 border-[#4a9ebb] text-[#4a9ebb] font-[family-name:var(--font-space)] font-semibold uppercase tracking-wider text-sm overflow-hidden transition-all duration-300 hover:bg-[#4a9ebb] hover:text-[#0a0c10] hover:shadow-[0_0_30px_rgba(74,158,187,0.5)]"
+            className="btn-wave group relative px-10 py-4 bg-[#4a9ebb] text-[#0a0c10] font-[family-name:var(--font-space)] font-semibold uppercase tracking-wider text-sm transition-all duration-300 hover:bg-[#7ec8e3] hover:shadow-[0_0_30px_rgba(74,158,187,0.5)]"
           >
             <span className="relative z-10 flex items-center gap-2">
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -97,7 +97,7 @@ export default function Hero() {
           </Link>
           <Link
             href="#videos"
-            className="group relative px-10 py-4 border border-[#2d3d4f] text-[#c5d1de] font-[family-name:var(--font-space)] font-medium uppercase tracking-wider text-sm overflow-hidden transition-all duration-300 hover:border-[#4a9ebb] hover:text-[#4a9ebb] hover:shadow-[0_0_20px_rgba(74,158,187,0.2)]"
+            className="btn-wave group relative px-10 py-4 bg-[#4a9ebb] text-[#0a0c10] font-[family-name:var(--font-space)] font-semibold uppercase tracking-wider text-sm transition-all duration-300 hover:bg-[#7ec8e3] hover:shadow-[0_0_30px_rgba(74,158,187,0.5)]"
           >
             <span className="relative z-10">Ver Videos</span>
           </Link>

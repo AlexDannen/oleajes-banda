@@ -358,3 +358,32 @@ body::after {
   }
 }
 
+/* Animación de olas para botones */
+.btn-wave {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-wave::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,0.2) 25%,
+    rgba(255,255,255,0.3) 50%,
+    rgba(255,255,255,0.2) 75%,
+    transparent 100%
+  );
+  animation: waveShine 3s ease-in-out infinite;
+}
+
+@keyframes waveShine {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
