@@ -92,8 +92,19 @@ export default function Shows() {
                     sizes="(max-width: 768px) 256px, 320px"
                   />
 
-                  {/* Siluetas de público - aparecen al scrollear a la sección con delay */}
-                  <div className={`absolute bottom-0 left-0 right-0 h-32 transition-transform duration-700 delay-500 ease-out pointer-events-none ${isUpcomingVisible ? 'translate-y-[25%]' : 'translate-y-full'}`}>
+                  {/* Siluetas de público - móvil: scroll, desktop: hover */}
+                  {/* Móvil: aparece con scroll */}
+                  <div className={`md:hidden absolute bottom-0 left-0 right-0 h-32 transition-transform duration-700 delay-500 ease-out pointer-events-none ${isUpcomingVisible ? 'translate-y-[25%]' : 'translate-y-full'}`}>
+                    <Image
+                      src="/images/crowd-silhouette.png"
+                      alt="Público"
+                      fill
+                      className="object-cover object-top"
+                      sizes="320px"
+                    />
+                  </div>
+                  {/* Desktop: aparece con hover, más arriba */}
+                  <div className="hidden md:block absolute bottom-0 left-0 right-0 h-32 transition-transform duration-500 ease-out pointer-events-none translate-y-full group-hover:translate-y-[10%]">
                     <Image
                       src="/images/crowd-silhouette.png"
                       alt="Público"
