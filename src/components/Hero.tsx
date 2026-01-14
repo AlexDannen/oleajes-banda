@@ -77,18 +77,18 @@ export default function Hero() {
         </p>
 
         {/* Botones */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center flex-wrap">
           <Link
             href="#musica"
-            className="btn-wave btn-wave-1 group relative px-10 py-4 bg-[#a8d8ea] text-[#0a0c10] font-[family-name:var(--font-space)] font-semibold uppercase tracking-wider text-sm rounded-lg transition-all duration-300 hover:bg-[#c5e8f2] hover:shadow-[0_0_30px_rgba(74,158,187,0.4)]"
+            className="btn-wave btn-wave-1 btn-wave-vertical sm:btn-wave-horizontal group relative px-10 py-4 bg-[#a8d8ea] text-[#0a0c10] font-[family-name:var(--font-space)] font-semibold uppercase tracking-wider text-sm rounded-lg transition-all duration-300 hover:bg-[#c5e8f2] hover:shadow-[0_0_30px_rgba(74,158,187,0.4)]"
           >
             <span className="relative z-10">Escuchar</span>
           </Link>
           <Link
             href="#tocatas"
-            className="btn-wave btn-wave-2 group relative px-10 py-4 bg-[#a8d8ea] text-[#0a0c10] font-[family-name:var(--font-space)] font-semibold uppercase tracking-wider text-sm rounded-lg transition-all duration-300 hover:bg-[#c5e8f2] hover:shadow-[0_0_30px_rgba(74,158,187,0.4)]"
+            className="btn-wave btn-wave-2 btn-wave-vertical sm:btn-wave-horizontal group relative px-10 py-4 bg-[#a8d8ea] text-[#0a0c10] font-[family-name:var(--font-space)] font-semibold uppercase tracking-wider text-sm rounded-lg transition-all duration-300 hover:bg-[#c5e8f2] hover:shadow-[0_0_30px_rgba(74,158,187,0.4)]"
           >
-            <span className="relative z-10 flex items-center gap-2">
+            <span className="relative z-10 flex items-center justify-center gap-2">
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 002 2 2 2 0 012 2 2 2 0 01-2 2 2 2 0 00-2 2v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 012-2 2 2 0 002-2V7a2 2 0 00-2-2H5z" />
               </svg>
@@ -97,7 +97,7 @@ export default function Hero() {
           </Link>
           <Link
             href="#videos"
-            className="btn-wave btn-wave-3 group relative px-10 py-4 bg-[#a8d8ea] text-[#0a0c10] font-[family-name:var(--font-space)] font-semibold uppercase tracking-wider text-sm rounded-lg transition-all duration-300 hover:bg-[#c5e8f2] hover:shadow-[0_0_30px_rgba(74,158,187,0.4)]"
+            className="btn-wave btn-wave-3 btn-wave-vertical sm:btn-wave-horizontal group relative px-10 py-4 bg-[#a8d8ea] text-[#0a0c10] font-[family-name:var(--font-space)] font-semibold uppercase tracking-wider text-sm rounded-lg transition-all duration-300 hover:bg-[#c5e8f2] hover:shadow-[0_0_30px_rgba(74,158,187,0.4)]"
           >
             <span className="relative z-10">Ver Videos</span>
           </Link>
