@@ -25,7 +25,7 @@ export default function About() {
   ];
 
   return (
-    <section id="nosotros" className="relative py-32 px-4 bg-[#0d1520] overflow-hidden">
+    <section id="nosotros" className="relative py-16 sm:py-24 md:py-32 px-4 bg-[#0d1520] overflow-hidden">
       {/* Fondo de ciudad */}
       <div className="absolute inset-0 city-pattern opacity-10" />
 
@@ -41,7 +41,7 @@ export default function About() {
           <span className="font-[family-name:var(--font-space)] text-[#4a9ebb] text-xs uppercase tracking-[0.3em] neon-flicker">
             Conocenos
           </span>
-          <h2 className="font-[family-name:var(--font-playfair)] text-5xl md:text-6xl font-bold mt-4 mb-6 text-[#c5d1de]">
+          <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl md:text-6xl font-bold mt-4 mb-6 text-[#c5d1de]">
             Sobre Nosotros
           </h2>
           <div className="flex items-center justify-center gap-4">
@@ -79,7 +79,7 @@ export default function About() {
         </div>
 
         {/* Integrantes */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-10">
           {members.map((member, index) => (
             <div
               key={member.name}
@@ -109,10 +109,10 @@ export default function About() {
               </div>
 
               {/* Info */}
-              <h3 className="font-[family-name:var(--font-playfair)] text-xl text-[#c5d1de] mb-1">
+              <h3 className="font-[family-name:var(--font-playfair)] text-base sm:text-lg md:text-xl text-[#c5d1de] mb-1">
                 {member.name}
               </h3>
-              <p className="font-[family-name:var(--font-space)] text-[#4a9ebb] text-xs uppercase tracking-wider">
+              <p className="font-[family-name:var(--font-space)] text-[#4a9ebb] text-[10px] sm:text-xs uppercase tracking-wider">
                 {member.role}
               </p>
             </div>

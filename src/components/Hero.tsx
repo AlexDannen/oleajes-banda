@@ -31,12 +31,12 @@ export default function Hero() {
       {/* Contenido */}
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
         {/* Subtítulo superior */}
-        <p className="font-[family-name:var(--font-space)] text-[#4a9ebb] text-sm uppercase tracking-[0.3em] mb-6 animate-fade-in-up neon-flicker">
+        <p className="font-[family-name:var(--font-space)] text-[#4a9ebb] text-xs sm:text-sm uppercase tracking-[0.15em] sm:tracking-[0.3em] mb-6 animate-fade-in-up neon-flicker">
           Desde Santiago de Chile
         </p>
 
         {/* Título principal */}
-        <h1 className="font-[family-name:var(--font-brush)] text-8xl md:text-[12rem] tracking-wide mb-8 italic">
+        <h1 className="font-[family-name:var(--font-brush)] text-6xl sm:text-8xl md:text-[12rem] tracking-wide mb-8 italic">
           <span className="wave-text block drop-shadow-[0_0_30px_rgba(74,158,187,0.3)] text-[#c5d1de]" style={{ textShadow: '4px 4px 0px rgba(74,158,187,0.3), -2px -2px 0px rgba(126,200,227,0.2)' }}>
             Oleajes
             <span className="text-fill" aria-hidden="true">Oleajes</span>
@@ -92,11 +92,11 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Esquinas decorativas - como marco de ventana */}
-      <div className="absolute top-8 left-8 w-20 h-20 border-l-2 border-t-2 border-[#2d3d4f]/50" />
-      <div className="absolute top-8 right-8 w-20 h-20 border-r-2 border-t-2 border-[#2d3d4f]/50" />
-      <div className="absolute bottom-8 left-8 w-20 h-20 border-l-2 border-b-2 border-[#4a9ebb]/30" />
-      <div className="absolute bottom-8 right-8 w-20 h-20 border-r-2 border-b-2 border-[#4a9ebb]/30" />
+      {/* Esquinas decorativas - como marco de ventana (ocultas en móvil) */}
+      <div className="hidden sm:block absolute top-8 left-8 w-20 h-20 border-l-2 border-t-2 border-[#2d3d4f]/50" />
+      <div className="hidden sm:block absolute top-8 right-8 w-20 h-20 border-r-2 border-t-2 border-[#2d3d4f]/50" />
+      <div className="hidden sm:block absolute bottom-8 left-8 w-20 h-20 border-l-2 border-b-2 border-[#4a9ebb]/30" />
+      <div className="hidden sm:block absolute bottom-8 right-8 w-20 h-20 border-r-2 border-b-2 border-[#4a9ebb]/30" />
     </section>
   );
 }

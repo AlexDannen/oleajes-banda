@@ -15,7 +15,7 @@ export default function Videos() {
   const youtubeChannelUrl = "https://youtube.com/@oleajes";
 
   return (
-    <section id="videos" className="relative py-32 px-4 bg-[#0a0c10] overflow-hidden">
+    <section id="videos" className="relative py-16 sm:py-24 md:py-32 px-4 bg-[#0a0c10] overflow-hidden">
       {/* Efecto de lluvia sutil */}
       <div className="absolute inset-0 rain-effect opacity-30" />
 
@@ -28,7 +28,7 @@ export default function Videos() {
           <span className="font-[family-name:var(--font-space)] text-[#4a9ebb] text-xs uppercase tracking-[0.3em] neon-flicker">
             Miranos
           </span>
-          <h2 className="font-[family-name:var(--font-playfair)] text-5xl md:text-6xl font-bold mt-4 mb-6 text-[#c5d1de]">
+          <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl md:text-6xl font-bold mt-4 mb-6 text-[#c5d1de]">
             Videos
           </h2>
           <div className="flex items-center justify-center gap-4">
@@ -45,8 +45,8 @@ export default function Videos() {
               key={video.id}
               className="group relative"
             >
-              {/* Edificios que aparecen arriba */}
-              <div className="absolute bottom-full left-0 w-full h-32 mb-[-12px] transition-all duration-500 ease-out opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 pointer-events-none">
+              {/* Edificios que aparecen arriba (ocultos en móvil) */}
+              <div className="hidden md:block absolute bottom-full left-0 w-full h-32 mb-[-12px] transition-all duration-500 ease-out opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 pointer-events-none">
                 <svg viewBox="0 0 200 50" className="w-full h-full" preserveAspectRatio="xMidYMax meet">
                   {/* Edificio 1 - izquierda */}
                   <rect x="10" y="20" width="20" height="30" fill="#1a2634" stroke="#4a9ebb" strokeWidth="0.5" />

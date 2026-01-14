@@ -19,14 +19,16 @@ export default function Shows() {
       title: "La Juguera - 22 Agosto 2024",
       rotation: "-3deg",
       top: "10%",
-      left: "15%",
+      left: "8%",
+      leftMd: "15%",
     },
     {
       posterImage: "/images/shows/halloween-volantin.jpg",
       title: "Halloween Volantín - 31 Oct 2024",
       rotation: "2deg",
       top: "12%",
-      left: "55%",
+      left: "52%",
+      leftMd: "55%",
     },
   ];
 
@@ -37,7 +39,7 @@ export default function Shows() {
         <span className="font-[family-name:var(--font-space)] text-[#4a9ebb] text-xs uppercase tracking-[0.3em] neon-flicker">
           En Vivo
         </span>
-        <h2 className="font-[family-name:var(--font-brush)] text-6xl md:text-8xl text-[#c5d1de] mt-4 mb-6 italic">
+        <h2 className="font-[family-name:var(--font-brush)] text-5xl sm:text-6xl md:text-8xl text-[#c5d1de] mt-4 mb-6 italic">
           Tocatas
         </h2>
         <div className="flex items-center justify-center gap-4">
@@ -106,7 +108,7 @@ export default function Shows() {
 
         {/* La pared */}
         <div
-          className="relative min-h-[500px] md:min-h-[600px] rounded-sm overflow-hidden border border-[#2d3d4f]"
+          className="relative min-h-[350px] sm:min-h-[450px] md:min-h-[600px] rounded-sm overflow-hidden border border-[#2d3d4f]"
           style={{
             background: 'linear-gradient(180deg, #1e2a38 0%, #1a2634 30%, #151d28 70%, #0d1520 100%)',
           }}
@@ -185,7 +187,7 @@ export default function Shows() {
           {pastShows.map((show, index) => (
             <div
               key={index}
-              className="absolute w-32 md:w-44 group cursor-pointer"
+              className="absolute w-24 sm:w-32 md:w-44 group cursor-pointer"
               style={{
                 top: show.top,
                 left: show.left,

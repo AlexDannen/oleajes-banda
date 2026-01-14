@@ -138,7 +138,7 @@ export default function Music() {
   };
 
   return (
-    <section id="musica" className="relative py-32 px-4 bg-[#0d1520] overflow-hidden">
+    <section id="musica" className="relative py-16 sm:py-24 md:py-32 px-4 bg-[#0d1520] overflow-hidden">
       {/* Efecto de agua en el fondo */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute inset-0 bg-gradient-to-b from-[#0a0c10] via-transparent to-[#1a2634]" />
@@ -156,7 +156,7 @@ export default function Music() {
           <span className="font-[family-name:var(--font-space)] text-[#4a9ebb] text-xs uppercase tracking-[0.3em] neon-flicker">
             Escuchanos
           </span>
-          <h2 className="font-[family-name:var(--font-playfair)] text-5xl md:text-6xl font-bold mt-4 mb-6 text-[#c5d1de]">
+          <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl md:text-6xl font-bold mt-4 mb-6 text-[#c5d1de]">
             Nuestra Música
           </h2>
           <p className="font-[family-name:var(--font-space)] text-[#7a8a9a] text-sm mb-6">
@@ -174,8 +174,8 @@ export default function Music() {
           <div className="group relative">
             <div className="absolute -inset-1 bg-gradient-to-r from-[#4a9ebb]/20 to-[#7ec8e3]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
 
-            {/* Vinilo que se asoma */}
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-64 h-64 transition-all duration-500 ease-out translate-x-[0%] group-hover:translate-x-[65%] z-0 pointer-events-none">
+            {/* Vinilo que se asoma (oculto en móvil) */}
+            <div className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 w-64 h-64 transition-all duration-500 ease-out translate-x-[0%] group-hover:translate-x-[65%] z-0 pointer-events-none">
               {/* Disco de vinilo */}
               <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]">
                 {/* Base del vinilo */}
