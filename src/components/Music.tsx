@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useState, useEffect, useRef, type ReactNode } from "react";
 
 // Iconos de plataformas
 const PlatformIcons = {
@@ -77,6 +77,23 @@ type Album = {
 export default function Music() {
   const [expandedTrack, setExpandedTrack] = useState<number | null>(null);
   const [expandedAlbum, setExpandedAlbum] = useState<boolean>(false);
+  const [isMusicVisible, setIsMusicVisible] = useState(false);
+  const musicRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsMusicVisible(entry.isIntersecting);
+      },
+      { threshold: 0.3 }
+    );
+
+    if (musicRef.current) {
+      observer.observe(musicRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   // Datos de las canciones con enlaces a todas las plataformas
   // TODO: Reemplazar con los enlaces reales de cada plataforma
@@ -170,11 +187,39 @@ export default function Music() {
         </div>
 
         {/* EP / Album - Primero */}
-        <div className="max-w-xl mx-auto">
+        <div ref={musicRef} className="max-w-xl mx-auto">
           <div className="group relative">
             <div className="absolute -inset-1 bg-gradient-to-r from-[#4a9ebb]/20 to-[#7ec8e3]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
 
-            {/* Vinilo que se asoma (oculto en móvil) */}
+            {/* Vinilo móvil - aparece desde arriba al scrollear */}
+            <div className={`md:hidden absolute left-1/2 -translate-x-1/2 w-32 h-32 transition-all duration-700 ease-out z-20 pointer-events-none ${isMusicVisible ? '-top-12 opacity-100' : '-top-32 opacity-0'}`}>
+              <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-[0_0_15px_rgba(74,158,187,0.4)]">
+                <circle cx="50" cy="50" r="48" fill="#1a1a1a" />
+                <circle cx="50" cy="50" r="48" fill="url(#vinylShineMobile)" />
+                <circle cx="50" cy="50" r="44" fill="none" stroke="#252525" strokeWidth="0.5" />
+                <circle cx="50" cy="50" r="38" fill="none" stroke="#252525" strokeWidth="0.5" />
+                <circle cx="50" cy="50" r="32" fill="none" stroke="#252525" strokeWidth="0.5" />
+                <circle cx="50" cy="50" r="26" fill="none" stroke="#252525" strokeWidth="0.5" />
+                <circle cx="50" cy="50" r="15" fill="#4a9ebb" />
+                <circle cx="50" cy="50" r="14" fill="url(#labelGradientMobile)" />
+                <circle cx="50" cy="50" r="3" fill="#0a0c10" />
+                <text x="50" y="48" textAnchor="middle" fill="#0a0c10" fontSize="5" fontWeight="bold" fontFamily="sans-serif">OLEAJES</text>
+                <text x="50" y="55" textAnchor="middle" fill="#0a0c10" fontSize="3" fontFamily="sans-serif">EP</text>
+                <defs>
+                  <linearGradient id="vinylShineMobile" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#333" stopOpacity="0.3" />
+                    <stop offset="50%" stopColor="#111" stopOpacity="0" />
+                    <stop offset="100%" stopColor="#333" stopOpacity="0.2" />
+                  </linearGradient>
+                  <linearGradient id="labelGradientMobile" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#5fb3d4" />
+                    <stop offset="100%" stopColor="#3a8aa8" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+
+            {/* Vinilo desktop - aparece al lado en hover */}
             <div className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 w-64 h-64 transition-all duration-500 ease-out translate-x-[0%] group-hover:translate-x-[65%] z-0 pointer-events-none">
               {/* Disco de vinilo */}
               <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]">

@@ -1,4 +1,26 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
 export default function Videos() {
+  const [isVisible, setIsVisible] = useState(false);
+  const videosRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.2 }
+    );
+
+    if (videosRef.current) {
+      observer.observe(videosRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   const videos = [
     {
       id: "KdTmCP8xhWE",
@@ -13,6 +35,48 @@ export default function Videos() {
   ];
 
   const youtubeChannelUrl = "https://youtube.com/@oleajes";
+
+  // SVG de edificios simplificado para móvil
+  const BuildingsSVG = () => (
+    <svg viewBox="0 0 200 50" className="w-full h-full" preserveAspectRatio="xMidYMax meet">
+      <rect x="10" y="20" width="20" height="30" fill="#1a2634" stroke="#4a9ebb" strokeWidth="0.5" />
+      <rect x="13" y="24" width="4" height="4" fill="#4a9ebb" opacity="0.5" />
+      <rect x="20" y="24" width="4" height="4" fill="#4a9ebb" opacity="0.3" />
+      <rect x="13" y="31" width="4" height="4" fill="#4a9ebb" opacity="0.4" />
+      <rect x="20" y="31" width="4" height="4" fill="#4a9ebb" opacity="0.6" />
+
+      <rect x="35" y="5" width="18" height="45" fill="#1a2634" stroke="#4a9ebb" strokeWidth="0.5" />
+      <rect x="38" y="10" width="3" height="3" fill="#4a9ebb" opacity="0.6" />
+      <rect x="44" y="10" width="3" height="3" fill="#4a9ebb" opacity="0.4" />
+      <rect x="38" y="16" width="3" height="3" fill="#4a9ebb" opacity="0.3" />
+      <rect x="44" y="16" width="3" height="3" fill="#4a9ebb" opacity="0.7" />
+      <line x1="44" y1="5" x2="44" y2="0" stroke="#4a9ebb" strokeWidth="0.5" />
+      <circle cx="44" cy="0" r="1" fill="#FF0000" opacity="0.8" />
+
+      <rect x="58" y="15" width="25" height="35" fill="#1a2634" stroke="#4a9ebb" strokeWidth="0.5" />
+      <rect x="62" y="19" width="4" height="5" fill="#4a9ebb" opacity="0.4" />
+      <rect x="69" y="19" width="4" height="5" fill="#4a9ebb" opacity="0.6" />
+      <rect x="76" y="19" width="4" height="5" fill="#4a9ebb" opacity="0.3" />
+
+      <rect x="88" y="30" width="30" height="20" fill="#1a2634" stroke="#4a9ebb" strokeWidth="0.5" />
+      <rect x="92" y="34" width="5" height="4" fill="#4a9ebb" opacity="0.5" />
+      <rect x="100" y="34" width="5" height="4" fill="#4a9ebb" opacity="0.4" />
+      <rect x="108" y="34" width="5" height="4" fill="#4a9ebb" opacity="0.6" />
+
+      <rect x="123" y="10" width="15" height="40" fill="#1a2634" stroke="#4a9ebb" strokeWidth="0.5" />
+      <rect x="126" y="14" width="3" height="4" fill="#4a9ebb" opacity="0.6" />
+      <rect x="131" y="14" width="3" height="4" fill="#4a9ebb" opacity="0.4" />
+
+      <rect x="143" y="25" width="18" height="25" fill="#1a2634" stroke="#4a9ebb" strokeWidth="0.5" />
+      <rect x="146" y="29" width="4" height="4" fill="#4a9ebb" opacity="0.5" />
+      <rect x="153" y="29" width="4" height="4" fill="#4a9ebb" opacity="0.3" />
+
+      <rect x="166" y="20" width="24" height="30" fill="#1a2634" stroke="#4a9ebb" strokeWidth="0.5" />
+      <rect x="170" y="24" width="5" height="4" fill="#4a9ebb" opacity="0.4" />
+      <rect x="178" y="24" width="5" height="4" fill="#4a9ebb" opacity="0.6" />
+      <line x1="178" y1="20" x2="178" y2="14" stroke="#4a9ebb" strokeWidth="0.5" />
+    </svg>
+  );
 
   return (
     <section id="videos" className="relative py-16 sm:py-24 md:py-32 px-4 bg-[#0a0c10] overflow-hidden">
@@ -39,96 +103,29 @@ export default function Videos() {
         </div>
 
         {/* Grid de videos - 2 columnas centradas */}
-        <div className="grid md:grid-cols-2 gap-10 max-w-4xl mx-auto">
+        <div ref={videosRef} className="grid md:grid-cols-2 gap-10 max-w-4xl mx-auto">
           {videos.map((video, index) => (
             <div
               key={video.id}
               className="group relative"
             >
-              {/* Edificios que aparecen arriba (ocultos en móvil) */}
+              {/* Edificios móvil - primer video desde arriba */}
+              {index === 0 && (
+                <div className={`md:hidden absolute left-0 w-full h-20 transition-all duration-700 ease-out pointer-events-none ${isVisible ? 'bottom-full mb-[-8px] opacity-100' : 'bottom-full mb-8 opacity-0'}`}>
+                  <BuildingsSVG />
+                </div>
+              )}
+
+              {/* Edificios móvil - segundo video desde abajo (invertido) */}
+              {index === 1 && (
+                <div className={`md:hidden absolute left-0 w-full h-20 transition-all duration-700 ease-out pointer-events-none transform rotate-180 ${isVisible ? 'top-full mt-[-8px] opacity-100' : 'top-full mt-8 opacity-0'}`}>
+                  <BuildingsSVG />
+                </div>
+              )}
+
+              {/* Edificios desktop - hover desde arriba */}
               <div className="hidden md:block absolute bottom-full left-0 w-full h-32 mb-[-12px] transition-all duration-500 ease-out opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 pointer-events-none">
-                <svg viewBox="0 0 200 50" className="w-full h-full" preserveAspectRatio="xMidYMax meet">
-                  {/* Edificio 1 - izquierda */}
-                  <rect x="10" y="20" width="20" height="30" fill="#1a2634" stroke="#4a9ebb" strokeWidth="0.5" />
-                  <rect x="13" y="24" width="4" height="4" fill="#4a9ebb" opacity="0.5" />
-                  <rect x="20" y="24" width="4" height="4" fill="#4a9ebb" opacity="0.3" />
-                  <rect x="13" y="31" width="4" height="4" fill="#4a9ebb" opacity="0.4" />
-                  <rect x="20" y="31" width="4" height="4" fill="#4a9ebb" opacity="0.6" />
-                  <rect x="13" y="38" width="4" height="4" fill="#4a9ebb" opacity="0.3" />
-                  <rect x="20" y="38" width="4" height="4" fill="#4a9ebb" opacity="0.5" />
-
-                  {/* Edificio 2 - torre alta */}
-                  <rect x="35" y="5" width="18" height="45" fill="#1a2634" stroke="#4a9ebb" strokeWidth="0.5" />
-                  <rect x="38" y="10" width="3" height="3" fill="#4a9ebb" opacity="0.6" />
-                  <rect x="44" y="10" width="3" height="3" fill="#4a9ebb" opacity="0.4" />
-                  <rect x="38" y="16" width="3" height="3" fill="#4a9ebb" opacity="0.3" />
-                  <rect x="44" y="16" width="3" height="3" fill="#4a9ebb" opacity="0.7" />
-                  <rect x="38" y="22" width="3" height="3" fill="#4a9ebb" opacity="0.5" />
-                  <rect x="44" y="22" width="3" height="3" fill="#4a9ebb" opacity="0.4" />
-                  <rect x="38" y="28" width="3" height="3" fill="#4a9ebb" opacity="0.6" />
-                  <rect x="44" y="28" width="3" height="3" fill="#4a9ebb" opacity="0.3" />
-                  <rect x="38" y="34" width="3" height="3" fill="#4a9ebb" opacity="0.4" />
-                  <rect x="44" y="34" width="3" height="3" fill="#4a9ebb" opacity="0.5" />
-                  <rect x="38" y="40" width="3" height="3" fill="#4a9ebb" opacity="0.7" />
-                  <rect x="44" y="40" width="3" height="3" fill="#4a9ebb" opacity="0.3" />
-                  {/* Antena */}
-                  <line x1="44" y1="5" x2="44" y2="0" stroke="#4a9ebb" strokeWidth="0.5" />
-                  <circle cx="44" cy="0" r="1" fill="#FF0000" opacity="0.8" />
-
-                  {/* Edificio 3 - medio */}
-                  <rect x="58" y="15" width="25" height="35" fill="#1a2634" stroke="#4a9ebb" strokeWidth="0.5" />
-                  <rect x="62" y="19" width="4" height="5" fill="#4a9ebb" opacity="0.4" />
-                  <rect x="69" y="19" width="4" height="5" fill="#4a9ebb" opacity="0.6" />
-                  <rect x="76" y="19" width="4" height="5" fill="#4a9ebb" opacity="0.3" />
-                  <rect x="62" y="27" width="4" height="5" fill="#4a9ebb" opacity="0.5" />
-                  <rect x="69" y="27" width="4" height="5" fill="#4a9ebb" opacity="0.3" />
-                  <rect x="76" y="27" width="4" height="5" fill="#4a9ebb" opacity="0.7" />
-                  <rect x="62" y="35" width="4" height="5" fill="#4a9ebb" opacity="0.3" />
-                  <rect x="69" y="35" width="4" height="5" fill="#4a9ebb" opacity="0.5" />
-                  <rect x="76" y="35" width="4" height="5" fill="#4a9ebb" opacity="0.4" />
-
-                  {/* Edificio 4 - bajo ancho */}
-                  <rect x="88" y="30" width="30" height="20" fill="#1a2634" stroke="#4a9ebb" strokeWidth="0.5" />
-                  <rect x="92" y="34" width="5" height="4" fill="#4a9ebb" opacity="0.5" />
-                  <rect x="100" y="34" width="5" height="4" fill="#4a9ebb" opacity="0.4" />
-                  <rect x="108" y="34" width="5" height="4" fill="#4a9ebb" opacity="0.6" />
-                  <rect x="92" y="41" width="5" height="4" fill="#4a9ebb" opacity="0.3" />
-                  <rect x="100" y="41" width="5" height="4" fill="#4a9ebb" opacity="0.7" />
-                  <rect x="108" y="41" width="5" height="4" fill="#4a9ebb" opacity="0.4" />
-
-                  {/* Edificio 5 - torre derecha */}
-                  <rect x="123" y="10" width="15" height="40" fill="#1a2634" stroke="#4a9ebb" strokeWidth="0.5" />
-                  <rect x="126" y="14" width="3" height="4" fill="#4a9ebb" opacity="0.6" />
-                  <rect x="131" y="14" width="3" height="4" fill="#4a9ebb" opacity="0.4" />
-                  <rect x="126" y="21" width="3" height="4" fill="#4a9ebb" opacity="0.3" />
-                  <rect x="131" y="21" width="3" height="4" fill="#4a9ebb" opacity="0.5" />
-                  <rect x="126" y="28" width="3" height="4" fill="#4a9ebb" opacity="0.7" />
-                  <rect x="131" y="28" width="3" height="4" fill="#4a9ebb" opacity="0.3" />
-                  <rect x="126" y="35" width="3" height="4" fill="#4a9ebb" opacity="0.4" />
-                  <rect x="131" y="35" width="3" height="4" fill="#4a9ebb" opacity="0.6" />
-                  <rect x="126" y="42" width="3" height="4" fill="#4a9ebb" opacity="0.5" />
-                  <rect x="131" y="42" width="3" height="4" fill="#4a9ebb" opacity="0.4" />
-
-                  {/* Edificio 6 - pequeño derecha */}
-                  <rect x="143" y="25" width="18" height="25" fill="#1a2634" stroke="#4a9ebb" strokeWidth="0.5" />
-                  <rect x="146" y="29" width="4" height="4" fill="#4a9ebb" opacity="0.5" />
-                  <rect x="153" y="29" width="4" height="4" fill="#4a9ebb" opacity="0.3" />
-                  <rect x="146" y="36" width="4" height="4" fill="#4a9ebb" opacity="0.4" />
-                  <rect x="153" y="36" width="4" height="4" fill="#4a9ebb" opacity="0.6" />
-                  <rect x="146" y="43" width="4" height="4" fill="#4a9ebb" opacity="0.3" />
-                  <rect x="153" y="43" width="4" height="4" fill="#4a9ebb" opacity="0.5" />
-
-                  {/* Edificio 7 - extremo derecha */}
-                  <rect x="166" y="20" width="24" height="30" fill="#1a2634" stroke="#4a9ebb" strokeWidth="0.5" />
-                  <rect x="170" y="24" width="5" height="4" fill="#4a9ebb" opacity="0.4" />
-                  <rect x="178" y="24" width="5" height="4" fill="#4a9ebb" opacity="0.6" />
-                  <rect x="170" y="31" width="5" height="4" fill="#4a9ebb" opacity="0.7" />
-                  <rect x="178" y="31" width="5" height="4" fill="#4a9ebb" opacity="0.3" />
-                  <rect x="170" y="38" width="5" height="4" fill="#4a9ebb" opacity="0.5" />
-                  <rect x="178" y="38" width="5" height="4" fill="#4a9ebb" opacity="0.4" />
-                  {/* Antena */}
-                  <line x1="178" y1="20" x2="178" y2="14" stroke="#4a9ebb" strokeWidth="0.5" />
-                </svg>
+                <BuildingsSVG />
               </div>
 
               {/* Marco estilo pantalla/monitor viejo */}
