@@ -299,6 +299,14 @@ body::after {
   animation: waveFill 1.8s ease-in-out forwards;
 }
 
+/* En dispositivos táctiles, la animación se repite automáticamente */
+@media (hover: none) {
+  .wave-text .text-fill {
+    animation: waveFill 2.5s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+}
+
 @keyframes waveFill {
   0% {
     clip-path: polygon(

@@ -74,8 +74,8 @@ export default function Shows() {
                     sizes="(max-width: 768px) 256px, 320px"
                   />
 
-                  {/* Siluetas de público que aparecen en hover */}
-                  <div className="absolute bottom-0 left-0 right-0 h-32 translate-y-full group-hover:translate-y-[10%] transition-transform duration-500 ease-out pointer-events-none">
+                  {/* Siluetas de público - visibles en móvil, hover en desktop */}
+                  <div className="absolute bottom-0 left-0 right-0 h-32 translate-y-[10%] md:translate-y-full md:group-hover:translate-y-[10%] transition-transform duration-500 ease-out pointer-events-none">
                     <Image
                       src="/images/crowd-silhouette.png"
                       alt="Público"
