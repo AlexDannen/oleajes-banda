@@ -176,6 +176,57 @@ body::after {
   filter: saturate(100%) contrast(110%);
 }
 
+.wipe-wave {
+  position: relative;
+  overflow: hidden;
+}
+
+.wipe-wave::before {
+  content: "";
+  position: absolute;
+  top: -12%;
+  bottom: -12%;
+  left: -45%;
+  width: 42%;
+  pointer-events: none;
+  z-index: 20;
+  opacity: 0.9;
+  background:
+    radial-gradient(ellipse at 50% 35%, rgba(126, 200, 227, 0.55) 0%, rgba(74, 158, 187, 0.25) 36%, transparent 70%),
+    linear-gradient(90deg, transparent 0%, rgba(126, 200, 227, 0.08) 18%, rgba(126, 200, 227, 0.65) 48%, rgba(10, 12, 16, 0.9) 62%, transparent 100%);
+  clip-path: polygon(0 0, 78% 0, 100% 11%, 82% 22%, 100% 33%, 78% 45%, 100% 56%, 83% 68%, 100% 79%, 78% 91%, 92% 100%, 0 100%);
+  filter: blur(1px) saturate(130%);
+  animation: wipe-wave-pass 4.8s ease-in-out infinite;
+}
+
+.wipe-wave::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 18px, rgba(74, 158, 187, 0.04) 18px 20px),
+    linear-gradient(90deg, transparent 0%, rgba(10, 12, 16, 0.62) 42%, transparent 72%);
+  background-size: 160% 100%, 220% 100%;
+  animation: wipe-trace 4.8s ease-in-out infinite;
+}
+
+@keyframes wipe-wave-pass {
+  0% { transform: translateX(0) skewX(-8deg); opacity: 0; }
+  12% { opacity: 0.9; }
+  58% { opacity: 0.95; }
+  72% { transform: translateX(360%) skewX(-8deg); opacity: 0; }
+  100% { transform: translateX(360%) skewX(-8deg); opacity: 0; }
+}
+
+@keyframes wipe-trace {
+  0% { background-position: 0 0, -180% 0; opacity: 0.25; }
+  45% { opacity: 0.55; }
+  72% { background-position: 60px 0, 160% 0; opacity: 0.18; }
+  100% { background-position: 60px 0, 160% 0; opacity: 0.18; }
+}
+
 /* Efecto de neón apagándose */
 .neon-flicker {
   animation: neon-flicker 4s infinite;
@@ -426,4 +477,3 @@ body::after {
   50% { left: 200%; }
   50.01%, 100% { left: -100%; }
 }
-

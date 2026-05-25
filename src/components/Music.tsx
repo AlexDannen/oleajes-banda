@@ -196,8 +196,8 @@ export default function Music() {
                 </span>
               </div>
 
-              <div className="wet-photo min-h-[352px] flex items-center justify-center px-6 py-12 bg-gradient-to-b from-[#0d1520] via-[#111923] to-[#0a0c10]">
-                <div className="text-center max-w-sm">
+              <div className="wet-photo wipe-wave min-h-[352px] flex items-center justify-center px-6 py-12 bg-gradient-to-b from-[#0d1520] via-[#111923] to-[#0a0c10]">
+                <div className="relative z-10 text-center max-w-sm">
                   <p className="font-[family-name:var(--font-space)] text-[#4a9ebb] text-xs uppercase tracking-[0.3em] mb-4">
                     Muy pronto
                   </p>
@@ -205,7 +205,7 @@ export default function Music() {
                     Nuevo álbum
                   </h3>
                   <p className="font-[family-name:var(--font-space)] text-[#7a8a9a] text-sm leading-7">
-                    Estamos muy pronto a sacar nuestro nuevo álbum. Gracias por esperar esta nueva ola con nosotros.
+                    Estamos trabajando para usted.
                   </p>
                 </div>
               </div>
