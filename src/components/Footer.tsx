@@ -52,12 +52,12 @@ export default function Footer() {
           Oleajes
         </h2>
         <p className="font-mono text-[#4a9ebb] text-xs mb-8 neon-flicker">
-          // de la ciudad sumergida
+          {"// de la ciudad sumergida"}
         </p>
 
         {/* Redes sociales */}
         <div className="flex justify-center gap-4 mb-12">
-          {socialLinks.map((social) => (
+          {socialLinks.filter((social) => social.name !== "Spotify").map((social) => (
             <a
               key={social.name}
               href={social.url}

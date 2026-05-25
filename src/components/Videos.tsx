@@ -156,7 +156,7 @@ export default function Videos() {
                     {video.title}
                   </p>
                   <p className="text-[#4a9ebb] text-xs font-mono mt-1">
-                    // {video.subtitle}
+                    {`// ${video.subtitle}`}
                   </p>
                 </div>
 

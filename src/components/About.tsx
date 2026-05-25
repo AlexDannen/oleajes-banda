@@ -80,7 +80,7 @@ export default function About() {
 
         {/* Integrantes */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-10">
-          {members.map((member, index) => (
+          {members.map((member) => (
             <div
               key={member.name}
               className="group text-center"

@@ -4,11 +4,6 @@ import { useState, useEffect, useRef, type ReactNode } from "react";
 
 // Iconos de plataformas
 const PlatformIcons = {
-  spotify: (
-    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-    </svg>
-  ),
   apple: (
     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
       <path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043a5.022 5.022 0 00-1.877-.726 10.496 10.496 0 00-1.564-.15c-.04-.003-.083-.01-.124-.013H5.986c-.152.01-.303.017-.455.026-.747.043-1.49.123-2.193.4-1.336.53-2.3 1.452-2.865 2.78-.192.448-.292.925-.363 1.408-.056.392-.088.785-.1 1.18 0 .032-.007.062-.01.093v12.223c.01.14.017.283.027.424.05.815.154 1.624.497 2.373.65 1.42 1.738 2.353 3.234 2.801.42.127.856.187 1.293.228.555.053 1.11.06 1.667.06h11.03a12.5 12.5 0 001.57-.1c.822-.106 1.596-.35 2.295-.81a5.046 5.046 0 001.88-2.207c.186-.42.293-.87.37-1.324.113-.675.138-1.358.137-2.04-.002-3.8 0-7.595-.003-11.393zm-6.423 3.99v5.712c0 .417-.058.827-.244 1.206-.29.59-.76.962-1.388 1.14-.35.1-.706.157-1.07.173-.95.042-1.785-.19-2.48-.86-.633-.608-.874-1.374-.766-2.23.1-.785.52-1.385 1.162-1.822.457-.31.97-.49 1.508-.593.64-.122 1.288-.19 1.93-.3.205-.036.41-.08.608-.14.133-.04.198-.14.197-.275-.005-.648 0-1.296-.002-1.943 0-.097-.025-.166-.126-.2-.166-.053-.332-.11-.503-.13-.533-.06-1.066-.115-1.6-.163-.616-.055-1.23-.127-1.835-.27-.894-.21-1.683-.607-2.266-1.332-.39-.485-.6-1.046-.69-1.66-.078-.527-.045-1.048.097-1.562.318-1.153 1.056-1.96 2.1-2.487.61-.308 1.268-.45 1.94-.515.693-.066 1.385-.053 2.072.072.665.12 1.29.354 1.85.736.608.414 1.03.964 1.25 1.66.11.35.16.71.17 1.077.01.476.004.953.005 1.43v2.866z"/>
@@ -49,7 +44,6 @@ type Platform = {
 };
 
 const platforms: Platform[] = [
-  { name: "Spotify", icon: PlatformIcons.spotify, color: "#1DB954", hoverColor: "hover:bg-[#1DB954]" },
   { name: "Apple Music", icon: PlatformIcons.apple, color: "#FA57C1", hoverColor: "hover:bg-[#FA57C1]" },
   { name: "YouTube Music", icon: PlatformIcons.youtube, color: "#FF0000", hoverColor: "hover:bg-[#FF0000]" },
   { name: "Tidal", icon: PlatformIcons.tidal, color: "#00FFFF", hoverColor: "hover:bg-[#00FFFF]" },
@@ -58,25 +52,12 @@ const platforms: Platform[] = [
   { name: "SoundCloud", icon: PlatformIcons.soundcloud, color: "#FF5500", hoverColor: "hover:bg-[#FF5500]" },
 ];
 
-// Plataformas sin Spotify (para el dropdown)
-const otherPlatforms = platforms.filter(p => p.name !== "Spotify");
-
-type Track = {
-  name: string;
-  spotifyId: string;
-  links: { [key: string]: string };
-};
-
 type Album = {
   name: string;
   type: "EP" | "Album" | "Single";
-  spotifyId: string;
-  links: { [key: string]: string };
 };
 
 export default function Music() {
-  const [expandedTrack, setExpandedTrack] = useState<number | null>(null);
-  const [expandedAlbum, setExpandedAlbum] = useState<boolean>(false);
   const [isMusicVisible, setIsMusicVisible] = useState(false);
   const musicRef = useRef<HTMLDivElement>(null);
 
@@ -95,63 +76,9 @@ export default function Music() {
     return () => observer.disconnect();
   }, []);
 
-  // Datos de las canciones con enlaces a todas las plataformas
-  // TODO: Reemplazar con los enlaces reales de cada plataforma
-  const tracks: Track[] = [
-    {
-      name: "Track 1",
-      spotifyId: "2Ig29hWE7uKjzdRgnpVxxZ",
-      links: {
-        "Apple Music": "#",
-        "YouTube Music": "#",
-        "Tidal": "#",
-        "Amazon Music": "#",
-        "Deezer": "#",
-        "SoundCloud": "#",
-      },
-    },
-    {
-      name: "Track 2",
-      spotifyId: "4tLwjVDFeJRHv9dc2NTqof",
-      links: {
-        "Apple Music": "#",
-        "YouTube Music": "#",
-        "Tidal": "#",
-        "Amazon Music": "#",
-        "Deezer": "#",
-        "SoundCloud": "#",
-      },
-    },
-    {
-      name: "Track 3",
-      spotifyId: "6m4fuvcfD0ntXkIF0fmFIu",
-      links: {
-        "Apple Music": "#",
-        "YouTube Music": "#",
-        "Tidal": "#",
-        "Amazon Music": "#",
-        "Deezer": "#",
-        "SoundCloud": "#",
-      },
-    },
-  ];
-
   const album: Album = {
-    name: "Nuestro EP",
-    type: "EP",
-    spotifyId: "6j08UGeTz4lEr0HMnjftRv",
-    links: {
-      "Apple Music": "#",
-      "YouTube Music": "#",
-      "Tidal": "#",
-      "Amazon Music": "#",
-      "Deezer": "#",
-      "SoundCloud": "#",
-    },
-  };
-
-  const toggleTrack = (index: number) => {
-    setExpandedTrack(expandedTrack === index ? null : index);
+    name: "Nuevo álbum",
+    type: "Album",
   };
 
   return (
@@ -177,7 +104,7 @@ export default function Music() {
             Nuestra Música
           </h2>
           <p className="font-[family-name:var(--font-space)] text-[#7a8a9a] text-sm mb-6">
-            Disponible en todas las plataformas
+            Estamos muy pronto a sacar nuestro nuevo álbum
           </p>
           <div className="flex items-center justify-center gap-4">
             <span className="w-16 h-px bg-gradient-to-r from-transparent to-[#4a9ebb]/50" />
@@ -186,7 +113,7 @@ export default function Music() {
           </div>
         </div>
 
-        {/* EP / Album - Primero */}
+        {/* Album - Primero */}
         <div ref={musicRef} className="max-w-xl mx-auto">
           <div className="group relative">
             <div className="absolute -inset-1 bg-gradient-to-r from-[#4a9ebb]/20 to-[#7ec8e3]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
@@ -204,7 +131,7 @@ export default function Music() {
                 <circle cx="50" cy="50" r="14" fill="url(#labelGradientMobile)" />
                 <circle cx="50" cy="50" r="3" fill="#0a0c10" />
                 <text x="50" y="48" textAnchor="middle" fill="#0a0c10" fontSize="5" fontWeight="bold" fontFamily="sans-serif">OLEAJES</text>
-                <text x="50" y="55" textAnchor="middle" fill="#0a0c10" fontSize="3" fontFamily="sans-serif">EP</text>
+                <text x="50" y="55" textAnchor="middle" fill="#0a0c10" fontSize="3" fontFamily="sans-serif">ALBUM</text>
                 <defs>
                   <linearGradient id="vinylShineMobile" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#333" stopOpacity="0.3" />
@@ -242,7 +169,7 @@ export default function Music() {
                 <circle cx="50" cy="50" r="3" fill="#0a0c10" />
                 {/* Texto en la etiqueta */}
                 <text x="50" y="48" textAnchor="middle" fill="#0a0c10" fontSize="4" fontWeight="bold" fontFamily="sans-serif">OLEAJES</text>
-                <text x="50" y="54" textAnchor="middle" fill="#0a0c10" fontSize="2.5" fontFamily="sans-serif">EP</text>
+                <text x="50" y="54" textAnchor="middle" fill="#0a0c10" fontSize="2.5" fontFamily="sans-serif">ALBUM</text>
                 {/* Gradientes */}
                 <defs>
                   <linearGradient id="vinylShine" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -259,7 +186,7 @@ export default function Music() {
             </div>
 
             <div className="relative bg-[#0a0c10]/80 border border-[#2d3d4f]/50 backdrop-blur-sm overflow-hidden z-10">
-              {/* Header del EP */}
+              {/* Header del album */}
               <div className="flex items-center gap-4 px-4 py-3 border-b border-[#2d3d4f]/30">
                 <span className="font-mono text-[#4a9ebb] text-xs px-2 py-1 border border-[#4a9ebb]/50">
                   {album.type}
@@ -269,141 +196,27 @@ export default function Music() {
                 </span>
               </div>
 
-              {/* Embed de Spotify para el EP */}
-              <div className="wet-photo">
-                <iframe
-                  src={`https://open.spotify.com/embed/album/${album.spotifyId}?utm_source=generator&theme=0`}
-                  width="100%"
-                  height="352"
-                  frameBorder="0"
-                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                  loading="lazy"
-                />
-              </div>
-
-              {/* Botón para otras plataformas */}
-              <button
-                onClick={() => setExpandedAlbum(!expandedAlbum)}
-                className="w-full px-4 py-2 flex items-center justify-center gap-2 border-t border-[#2d3d4f]/30 transition-colors hover:bg-[#0d1520]/50"
-              >
-                <span className="font-[family-name:var(--font-space)] text-[#7a8a9a] text-xs uppercase tracking-wider">
-                  También en otras plataformas
-                </span>
-                <svg
-                  className={`w-3 h-3 text-[#4a9ebb] transition-transform duration-300 ${
-                    expandedAlbum ? "rotate-180" : ""
-                  }`}
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
-              </button>
-
-              {/* Panel desplegable con otras plataformas */}
-              <div
-                className={`overflow-hidden transition-all duration-300 ${
-                  expandedAlbum ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-                }`}
-              >
-                <div className="px-4 pb-4 pt-2 border-t border-[#2d3d4f]/50">
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                    {otherPlatforms.map((platform) => (
-                      <a
-                        key={platform.name}
-                        href={album.links[platform.name]}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`flex items-center gap-2 px-3 py-2 border border-[#2d3d4f]/50 text-[#c5d1de] font-[family-name:var(--font-space)] text-xs transition-all duration-300 hover:text-[#0a0c10] ${platform.hoverColor} hover:border-transparent hover:shadow-lg`}
-                      >
-                        <span style={{ color: platform.color }}>{platform.icon}</span>
-                        <span>{platform.name}</span>
-                      </a>
-                    ))}
-                  </div>
+              <div className="wet-photo min-h-[352px] flex items-center justify-center px-6 py-12 bg-gradient-to-b from-[#0d1520] via-[#111923] to-[#0a0c10]">
+                <div className="text-center max-w-sm">
+                  <p className="font-[family-name:var(--font-space)] text-[#4a9ebb] text-xs uppercase tracking-[0.3em] mb-4">
+                    Muy pronto
+                  </p>
+                  <h3 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl text-[#c5d1de] font-bold mb-5">
+                    Nuevo álbum
+                  </h3>
+                  <p className="font-[family-name:var(--font-space)] text-[#7a8a9a] text-sm leading-7">
+                    Estamos muy pronto a sacar nuestro nuevo álbum. Gracias por esperar esta nueva ola con nosotros.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Canciones - Compactas */}
-        <div className="mt-10">
-          <h3 className="font-[family-name:var(--font-space)] text-[#7a8a9a] text-xs uppercase tracking-wider mb-4 text-center">
-            Singles
-          </h3>
-          <div className="space-y-2 max-w-md mx-auto">
-            {tracks.map((track, index) => (
-              <div key={index} className="group relative">
-                <div className="relative bg-[#0a0c10]/80 border border-[#2d3d4f]/50 backdrop-blur-sm overflow-hidden">
-                  {/* Embed de Spotify compacto */}
-                  <div className="wet-photo">
-                    <iframe
-                      src={`https://open.spotify.com/embed/track/${track.spotifyId}?utm_source=generator&theme=0`}
-                      width="100%"
-                      height="80"
-                      frameBorder="0"
-                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                      loading="lazy"
-                    />
-                  </div>
-
-                  {/* Botón para otras plataformas */}
-                  <button
-                    onClick={() => toggleTrack(index)}
-                    className="w-full px-3 py-1.5 flex items-center justify-center gap-2 border-t border-[#2d3d4f]/30 transition-colors hover:bg-[#0d1520]/50"
-                  >
-                    <span className="font-[family-name:var(--font-space)] text-[#7a8a9a] text-[10px] uppercase tracking-wider">
-                      Otras plataformas
-                    </span>
-                    <svg
-                      className={`w-3 h-3 text-[#4a9ebb] transition-transform duration-300 ${
-                        expandedTrack === index ? "rotate-180" : ""
-                      }`}
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                  </button>
-
-                  {/* Panel desplegable con otras plataformas */}
-                  <div
-                    className={`overflow-hidden transition-all duration-300 ${
-                      expandedTrack === index ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-                    }`}
-                  >
-                    <div className="px-3 pb-3 pt-1 border-t border-[#2d3d4f]/50">
-                      <div className="grid grid-cols-2 gap-1.5">
-                        {otherPlatforms.map((platform) => (
-                          <a
-                            key={platform.name}
-                            href={track.links[platform.name]}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`flex items-center gap-2 px-2 py-1.5 border border-[#2d3d4f]/50 text-[#c5d1de] font-[family-name:var(--font-space)] text-[10px] transition-all duration-300 hover:text-[#0a0c10] ${platform.hoverColor} hover:border-transparent`}
-                          >
-                            <span style={{ color: platform.color }}>{platform.icon}</span>
-                            <span>{platform.name}</span>
-                          </a>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* Iconos de plataformas */}
         <div className="mt-16 text-center">
           <p className="font-[family-name:var(--font-space)] text-[#7a8a9a] text-xs uppercase tracking-wider mb-6">
-            Disponible en
+            Próximamente en plataformas
           </p>
           <div className="flex justify-center items-center gap-6 flex-wrap">
             {platforms.map((platform) => (
