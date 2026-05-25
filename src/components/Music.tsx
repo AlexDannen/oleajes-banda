@@ -191,9 +191,6 @@ export default function Music() {
                 <span className="font-mono text-[#4a9ebb] text-xs px-2 py-1 border border-[#4a9ebb]/50">
                   {album.type}
                 </span>
-                <span className="font-[family-name:var(--font-playfair)] text-[#c5d1de] text-lg">
-                  {album.name}
-                </span>
               </div>
 
               <div className="wet-photo wipe-wave min-h-[352px] flex items-center justify-center px-6 py-12 bg-gradient-to-b from-[#0d1520] via-[#111923] to-[#0a0c10]">
