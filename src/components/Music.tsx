@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useEffect, useRef, type ReactNode } from "react";
 
 // Iconos de plataformas
@@ -104,7 +105,7 @@ export default function Music() {
             Nuestra Música
           </h2>
           <p className="font-[family-name:var(--font-space)] text-[#7a8a9a] text-sm mb-6">
-            Estamos muy pronto a sacar nuestro nuevo álbum
+            Nuestro nuevo single ya viene — y el álbum, muy pronto
           </p>
           <div className="flex items-center justify-center gap-4">
             <span className="w-16 h-px bg-gradient-to-r from-transparent to-[#4a9ebb]/50" />
@@ -113,7 +114,57 @@ export default function Music() {
           </div>
         </div>
 
-        {/* Album - Primero */}
+        {/* Single - Ya no doy más */}
+        <div className="max-w-xl mx-auto mb-12">
+          <div className="group relative">
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#4a9ebb]/20 to-[#7ec8e3]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
+
+            <div className="relative bg-[#0a0c10]/80 border border-[#2d3d4f]/50 backdrop-blur-sm overflow-hidden z-10">
+              {/* Header del single */}
+              <div className="flex items-center gap-4 px-4 py-3 border-b border-[#2d3d4f]/30">
+                <span className="font-mono text-[#4a9ebb] text-xs px-2 py-1 border border-[#4a9ebb]/50">
+                  Single
+                </span>
+                <span className="font-[family-name:var(--font-space)] text-[#7a8a9a] text-xs uppercase tracking-wider">
+                  Pre-save disponible
+                </span>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 px-6 py-8 bg-gradient-to-b from-[#0d1520] via-[#111923] to-[#0a0c10]">
+                {/* Portada */}
+                <div className="relative w-44 h-44 sm:w-48 sm:h-48 shrink-0 rounded-lg overflow-hidden border border-[#2d3d4f] shadow-[0_0_30px_rgba(74,158,187,0.2)] group-hover:shadow-[0_0_40px_rgba(74,158,187,0.35)] transition-shadow duration-500">
+                  <Image
+                    src="/images/ya-no-doy-mas.jpg"
+                    alt="Portada de Ya no doy más"
+                    fill
+                    sizes="192px"
+                    className="object-cover"
+                  />
+                </div>
+
+                {/* Info */}
+                <div className="relative z-10 text-center sm:text-left">
+                  <p className="font-[family-name:var(--font-space)] text-[#4a9ebb] text-xs uppercase tracking-[0.3em] mb-3">
+                    Nuevo single
+                  </p>
+                  <h3 className="font-[family-name:var(--font-brush)] text-4xl sm:text-5xl italic text-[#c5d1de] mb-5 drop-shadow-[0_0_20px_rgba(74,158,187,0.3)]">
+                    Ya no doy más
+                  </h3>
+                  <a
+                    href="https://ffm.to/oleajes"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block px-8 py-3 bg-[#a8d8ea] text-[#0a0c10] font-[family-name:var(--font-space)] font-semibold uppercase tracking-wider text-sm rounded-lg transition-all duration-300 hover:bg-[#c5e8f2] hover:shadow-[0_0_30px_rgba(74,158,187,0.4)]"
+                  >
+                    Pre-Save
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Album */}
         <div ref={musicRef} className="max-w-xl mx-auto">
           <div className="group relative">
             <div className="absolute -inset-1 bg-gradient-to-r from-[#4a9ebb]/20 to-[#7ec8e3]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />

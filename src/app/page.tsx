@@ -5,6 +5,7 @@ import Shows from "@/components/Shows";
 import Videos from "@/components/Videos";
 import About from "@/components/About";
 import Footer from "@/components/Footer";
+import PresaveModal from "@/components/PresaveModal";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         <About />
       </main>
       <Footer />
+      <PresaveModal />
     </>
   );
 }
