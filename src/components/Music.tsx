@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState, useEffect, useRef, type ReactNode } from "react";
 
 // Iconos de plataformas
@@ -45,8 +44,6 @@ type Platform = {
   url: string;
 };
 
-const SPOTIFY_URL = "https://open.spotify.com/intl-es/track/16rBW4d1nbt7CddJWaUDXO?si=caceb3f59ad742cf";
-
 const platforms: Platform[] = [
   { name: "Apple Music", icon: PlatformIcons.apple, color: "#FA57C1", hoverColor: "hover:bg-[#FA57C1]", url: "https://geo.itunes.apple.com/album/ya-no-doy-m%C3%A1s-single/6782189160?app=itunes" },
   { name: "YouTube Music", icon: PlatformIcons.youtube, color: "#FF0000", hoverColor: "hover:bg-[#FF0000]", url: "https://www.youtube.com/playlist?list=OLAK5uy_n_hVLOsf7kbe9EiccE3saa7foQisJxrZg" },
@@ -63,6 +60,7 @@ type Album = {
 
 export default function Music() {
   const [isMusicVisible, setIsMusicVisible] = useState(false);
+  const [showOtherPlatforms, setShowOtherPlatforms] = useState(false);
   const musicRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -133,34 +131,66 @@ export default function Music() {
                 </span>
               </div>
 
-              <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 px-6 py-8 bg-gradient-to-b from-[#0d1520] via-[#111923] to-[#0a0c10]">
-                {/* Portada */}
-                <div className="relative w-44 h-44 sm:w-48 sm:h-48 shrink-0 rounded-lg overflow-hidden border border-[#2d3d4f] shadow-[0_0_30px_rgba(74,158,187,0.2)] group-hover:shadow-[0_0_40px_rgba(74,158,187,0.35)] transition-shadow duration-500">
-                  <Image
-                    src="/images/ya-no-doy-mas.jpg"
-                    alt="Portada de Ya no doy más"
-                    fill
-                    sizes="192px"
-                    className="object-cover"
-                  />
-                </div>
+              <div className="px-6 pt-8 pb-4 bg-gradient-to-b from-[#0d1520] via-[#111923] to-[#0a0c10] text-center">
+                <h3 className="font-[family-name:var(--font-brush)] text-4xl sm:text-5xl italic text-[#c5d1de] mb-6 drop-shadow-[0_0_20px_rgba(74,158,187,0.3)]">
+                  Ya no doy más
+                </h3>
+              </div>
 
-                {/* Info */}
-                <div className="relative z-10 text-center sm:text-left">
-                  <p className="font-[family-name:var(--font-space)] text-[#4a9ebb] text-xs uppercase tracking-[0.3em] mb-3">
-                    Single
-                  </p>
-                  <h3 className="font-[family-name:var(--font-brush)] text-4xl sm:text-5xl italic text-[#c5d1de] mb-5 drop-shadow-[0_0_20px_rgba(74,158,187,0.3)]">
-                    Ya no doy más
-                  </h3>
-                  <a
-                    href={SPOTIFY_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block px-8 py-3 bg-[#a8d8ea] text-[#0a0c10] font-[family-name:var(--font-space)] font-semibold uppercase tracking-wider text-sm rounded-lg transition-all duration-300 hover:bg-[#c5e8f2] hover:shadow-[0_0_30px_rgba(74,158,187,0.4)]"
-                  >
-                    Escuchar en Spotify
-                  </a>
+              {/* Embed de Spotify */}
+              <div className="wet-photo">
+                <iframe
+                  src="https://open.spotify.com/embed/track/16rBW4d1nbt7CddJWaUDXO?utm_source=generator&theme=0"
+                  width="100%"
+                  height="152"
+                  frameBorder="0"
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy"
+                />
+              </div>
+
+              {/* Botón para otras plataformas */}
+              <button
+                onClick={() => setShowOtherPlatforms(!showOtherPlatforms)}
+                className="w-full px-4 py-2 flex items-center justify-center gap-2 border-t border-[#2d3d4f]/30 transition-colors hover:bg-[#0d1520]/50"
+              >
+                <span className="font-[family-name:var(--font-space)] text-[#7a8a9a] text-xs uppercase tracking-wider">
+                  También en otras plataformas
+                </span>
+                <svg
+                  className={`w-3 h-3 text-[#4a9ebb] transition-transform duration-300 ${
+                    showOtherPlatforms ? "rotate-180" : ""
+                  }`}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </button>
+
+              {/* Panel desplegable con otras plataformas */}
+              <div
+                className={`overflow-hidden transition-all duration-300 ${
+                  showOtherPlatforms ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                }`}
+              >
+                <div className="px-4 pb-4 pt-2 border-t border-[#2d3d4f]/50">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    {platforms.map((platform) => (
+                      <a
+                        key={platform.name}
+                        href={platform.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`flex items-center gap-2 px-3 py-2 border border-[#2d3d4f]/50 text-[#c5d1de] font-[family-name:var(--font-space)] text-xs transition-all duration-300 hover:text-[#0a0c10] ${platform.hoverColor} hover:border-transparent hover:shadow-lg`}
+                      >
+                        <span style={{ color: platform.color }}>{platform.icon}</span>
+                        <span>{platform.name}</span>
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
