@@ -42,17 +42,18 @@ type Platform = {
   icon: ReactNode;
   color: string;
   hoverColor: string;
+  url: string;
 };
 
 const SPOTIFY_URL = "https://open.spotify.com/intl-es/track/16rBW4d1nbt7CddJWaUDXO?si=caceb3f59ad742cf";
 
 const platforms: Platform[] = [
-  { name: "Apple Music", icon: PlatformIcons.apple, color: "#FA57C1", hoverColor: "hover:bg-[#FA57C1]" },
-  { name: "YouTube Music", icon: PlatformIcons.youtube, color: "#FF0000", hoverColor: "hover:bg-[#FF0000]" },
-  { name: "Tidal", icon: PlatformIcons.tidal, color: "#00FFFF", hoverColor: "hover:bg-[#00FFFF]" },
-  { name: "Amazon Music", icon: PlatformIcons.amazon, color: "#FF9900", hoverColor: "hover:bg-[#FF9900]" },
-  { name: "Deezer", icon: PlatformIcons.deezer, color: "#FEAA2D", hoverColor: "hover:bg-[#FEAA2D]" },
-  { name: "SoundCloud", icon: PlatformIcons.soundcloud, color: "#FF5500", hoverColor: "hover:bg-[#FF5500]" },
+  { name: "Apple Music", icon: PlatformIcons.apple, color: "#FA57C1", hoverColor: "hover:bg-[#FA57C1]", url: "https://geo.itunes.apple.com/album/ya-no-doy-m%C3%A1s-single/6782189160?app=itunes" },
+  { name: "YouTube Music", icon: PlatformIcons.youtube, color: "#FF0000", hoverColor: "hover:bg-[#FF0000]", url: "https://www.youtube.com/playlist?list=OLAK5uy_n_hVLOsf7kbe9EiccE3saa7foQisJxrZg" },
+  { name: "Tidal", icon: PlatformIcons.tidal, color: "#00FFFF", hoverColor: "hover:bg-[#00FFFF]", url: "https://www.tidal.com/album/535051959" },
+  { name: "Amazon Music", icon: PlatformIcons.amazon, color: "#FF9900", hoverColor: "hover:bg-[#FF9900]", url: "https://music.amazon.com/albums/B0H643T1M3" },
+  { name: "Deezer", icon: PlatformIcons.deezer, color: "#FEAA2D", hoverColor: "hover:bg-[#FEAA2D]", url: "https://www.deezer.com/album/1009990791" },
+  { name: "SoundCloud", icon: PlatformIcons.soundcloud, color: "#FF5500", hoverColor: "hover:bg-[#FF5500]", url: "https://soundcloud.com/oleajes/ya-no-doy-mas" },
 ];
 
 type Album = {
@@ -270,14 +271,18 @@ export default function Music() {
           </p>
           <div className="flex justify-center items-center gap-6 flex-wrap">
             {platforms.map((platform) => (
-              <div
+              <a
                 key={platform.name}
+                href={platform.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-[#7a8a9a] hover:scale-110 transition-transform duration-300"
                 style={{ color: platform.color }}
                 title={platform.name}
+                aria-label={platform.name}
               >
                 {platform.icon}
-              </div>
+              </a>
             ))}
           </div>
         </div>
