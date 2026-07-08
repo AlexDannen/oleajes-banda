@@ -44,6 +44,8 @@ type Platform = {
   hoverColor: string;
 };
 
+const SPOTIFY_URL = "https://open.spotify.com/intl-es/track/16rBW4d1nbt7CddJWaUDXO?si=caceb3f59ad742cf";
+
 const platforms: Platform[] = [
   { name: "Apple Music", icon: PlatformIcons.apple, color: "#FA57C1", hoverColor: "hover:bg-[#FA57C1]" },
   { name: "YouTube Music", icon: PlatformIcons.youtube, color: "#FF0000", hoverColor: "hover:bg-[#FF0000]" },
@@ -105,7 +107,7 @@ export default function Music() {
             Nuestra Música
           </h2>
           <p className="font-[family-name:var(--font-space)] text-[#7a8a9a] text-sm mb-6">
-            Nuestro nuevo single ya viene — y el álbum, muy pronto
+            Nuestro nuevo single ya está disponible — y el álbum, muy pronto
           </p>
           <div className="flex items-center justify-center gap-4">
             <span className="w-16 h-px bg-gradient-to-r from-transparent to-[#4a9ebb]/50" />
@@ -126,7 +128,7 @@ export default function Music() {
                   Single
                 </span>
                 <span className="font-[family-name:var(--font-space)] text-[#7a8a9a] text-xs uppercase tracking-wider">
-                  Pre-save disponible
+                  Ya disponible
                 </span>
               </div>
 
@@ -145,18 +147,18 @@ export default function Music() {
                 {/* Info */}
                 <div className="relative z-10 text-center sm:text-left">
                   <p className="font-[family-name:var(--font-space)] text-[#4a9ebb] text-xs uppercase tracking-[0.3em] mb-3">
-                    Nuevo single
+                    Single
                   </p>
                   <h3 className="font-[family-name:var(--font-brush)] text-4xl sm:text-5xl italic text-[#c5d1de] mb-5 drop-shadow-[0_0_20px_rgba(74,158,187,0.3)]">
                     Ya no doy más
                   </h3>
                   <a
-                    href="https://ffm.to/oleajes"
+                    href={SPOTIFY_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block px-8 py-3 bg-[#a8d8ea] text-[#0a0c10] font-[family-name:var(--font-space)] font-semibold uppercase tracking-wider text-sm rounded-lg transition-all duration-300 hover:bg-[#c5e8f2] hover:shadow-[0_0_30px_rgba(74,158,187,0.4)]"
                   >
-                    Pre-Save
+                    Escuchar en Spotify
                   </a>
                 </div>
               </div>
@@ -264,7 +266,7 @@ export default function Music() {
         {/* Iconos de plataformas */}
         <div className="mt-16 text-center">
           <p className="font-[family-name:var(--font-space)] text-[#7a8a9a] text-xs uppercase tracking-wider mb-6">
-            Próximamente en plataformas
+            Disponible en todas las plataformas
           </p>
           <div className="flex justify-center items-center gap-6 flex-wrap">
             {platforms.map((platform) => (

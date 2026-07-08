@@ -3,8 +3,8 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const PRESAVE_URL = "https://ffm.to/oleajes";
-const STORAGE_KEY = "oleajes-presave-dismissed";
+const SPOTIFY_URL = "https://open.spotify.com/intl-es/track/16rBW4d1nbt7CddJWaUDXO?si=caceb3f59ad742cf";
+const STORAGE_KEY = "oleajes-listen-dismissed";
 
 export default function PresaveModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,7 +47,7 @@ export default function PresaveModal() {
       }`}
       role="dialog"
       aria-modal="true"
-      aria-label="Pre-save Ya no doy más"
+      aria-label="Escucha Ya no doy más"
     >
       {/* Overlay */}
       <div
@@ -78,7 +78,7 @@ export default function PresaveModal() {
 
         {/* Contenido */}
         <p className="font-[family-name:var(--font-space)] text-[#4a9ebb] text-xs uppercase tracking-[0.3em] mb-5">
-          Nuevo single
+          Ya disponible
         </p>
 
         {/* Portada */}
@@ -105,17 +105,17 @@ export default function PresaveModal() {
         </div>
 
         <p className="font-[family-name:var(--font-space)] text-[#7a8a9a] mb-7 leading-relaxed">
-          Guárdalo ahora y escúchalo apenas salga.
+          Nuestro nuevo single ya está afuera. Escúchalo ahora.
         </p>
 
         <a
-          href={PRESAVE_URL}
+          href={SPOTIFY_URL}
           target="_blank"
           rel="noopener noreferrer"
           onClick={close}
           className="inline-block w-full px-10 py-4 bg-[#a8d8ea] text-[#0a0c10] font-[family-name:var(--font-space)] font-semibold uppercase tracking-wider text-sm rounded-lg transition-all duration-300 hover:bg-[#c5e8f2] hover:shadow-[0_0_30px_rgba(74,158,187,0.4)]"
         >
-          Pre-Save
+          Escuchar en Spotify
         </a>
 
         <button
