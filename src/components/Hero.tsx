@@ -71,11 +71,6 @@ export default function Hero() {
           <span className="w-20 h-px bg-gradient-to-l from-transparent to-[#4a9ebb]" />
         </div>
 
-        {/* Descripción */}
-        <p className="font-[family-name:var(--font-space)] text-xl md:text-2xl text-[#7a8a9a] mb-12 max-w-2xl mx-auto leading-relaxed">
-          Rock sin rumbo forcejeando con las olas
-        </p>
-
         {/* Botones */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center flex-wrap">
           <Link

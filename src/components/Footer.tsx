@@ -39,12 +39,9 @@ export default function Footer() {
 
       <div className="relative max-w-4xl mx-auto text-center">
         {/* Logo */}
-        <h2 className="font-[family-name:var(--font-playfair)] text-4xl font-bold mb-2 text-[#c5d1de] glitch-hover">
+        <h2 className="font-[family-name:var(--font-playfair)] text-4xl font-bold mb-8 text-[#c5d1de] glitch-hover">
           Oleajes
         </h2>
-        <p className="font-mono text-[#4a9ebb] text-xs mb-8 neon-flicker">
-          {"// de la ciudad sumergida"}
-        </p>
 
         {/* Redes sociales */}
         <div className="flex justify-center gap-4 mb-12">
