@@ -148,8 +148,8 @@ export default function Music() {
                 onClick={() => setShowOtherPlatforms(!showOtherPlatforms)}
                 className="w-full px-4 py-2 flex items-center justify-center gap-2 border-t border-[#2d3d4f]/30 transition-colors hover:bg-[#0d1520]/50"
               >
-                <span className="font-[family-name:var(--font-space)] text-[#7a8a9a] text-xs uppercase tracking-wider">
-                  También en otras plataformas
+                <span className="glow-pulse-text font-[family-name:var(--font-space)] text-xs uppercase tracking-wider font-semibold">
+                  En todas las plataformas
                 </span>
                 <svg
                   className={`w-3 h-3 text-[#4a9ebb] transition-transform duration-300 ${
