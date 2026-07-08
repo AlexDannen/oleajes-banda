@@ -131,12 +131,6 @@ export default function Music() {
                 </span>
               </div>
 
-              <div className="px-6 pt-8 pb-4 bg-gradient-to-b from-[#0d1520] via-[#111923] to-[#0a0c10] text-center">
-                <h3 className="font-[family-name:var(--font-brush)] text-4xl sm:text-5xl italic text-[#c5d1de] mb-6 drop-shadow-[0_0_20px_rgba(74,158,187,0.3)]">
-                  Ya no doy más
-                </h3>
-              </div>
-
               {/* Embed de Spotify */}
               <div className="wet-photo">
                 <iframe
