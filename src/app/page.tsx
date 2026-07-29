@@ -6,6 +6,7 @@ import Videos from "@/components/Videos";
 import About from "@/components/About";
 import Footer from "@/components/Footer";
 import AutoScrollToMusic from "@/components/AutoScrollToMusic";
+import PresaveModal from "@/components/PresaveModal";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
       </main>
       <Footer />
       <AutoScrollToMusic />
+      <PresaveModal />
     </>
   );
 }
