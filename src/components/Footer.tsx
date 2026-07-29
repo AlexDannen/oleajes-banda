@@ -1,3 +1,5 @@
+import TrackedLink from "@/components/TrackedLink";
+
 export default function Footer() {
   const socialLinks = [
     {
@@ -46,16 +48,18 @@ export default function Footer() {
         {/* Redes sociales */}
         <div className="flex justify-center gap-4 mb-12">
           {socialLinks.filter((social) => social.name !== "Spotify").map((social) => (
-            <a
+            <TrackedLink
               key={social.name}
               href={social.url}
+              analyticsCategory={social.name === "YouTube" ? "video" : "social"}
+              analyticsLabel={social.name}
               target="_blank"
               rel="noopener noreferrer"
               className="p-4 border border-[#2d3d4f] text-[#7a8a9a] hover:border-[#4a9ebb] hover:text-[#4a9ebb] hover:shadow-[0_0_20px_rgba(74,158,187,0.3)] transition-all duration-300"
               aria-label={social.name}
             >
               {social.icon}
-            </a>
+            </TrackedLink>
           ))}
         </div>
 

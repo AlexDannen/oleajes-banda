@@ -31,11 +31,17 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
+# Directorio para estadísticas (montar como volumen persistente en producción)
+RUN mkdir -p /app/data && chown nextjs:nodejs /app/data
+
 USER nextjs
 
 EXPOSE 3000
 
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
+ENV ANALYTICS_DATA_FILE="/app/data/analytics.json"
+
+VOLUME ["/app/data"]
 
 CMD ["node", "server.js"]

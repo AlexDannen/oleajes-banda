@@ -6,10 +6,12 @@ import Videos from "@/components/Videos";
 import About from "@/components/About";
 import Footer from "@/components/Footer";
 import AutoScrollToMusic from "@/components/AutoScrollToMusic";
+import AnalyticsTracker from "@/components/AnalyticsTracker";
 
 export default function Home() {
   return (
     <>
+      <AnalyticsTracker />
       <Navbar />
       <main>
         <Hero />

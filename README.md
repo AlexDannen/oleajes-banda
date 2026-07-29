@@ -1,5 +1,13 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Panel de estadísticas
+
+La ruta `/admin` muestra visitas, visitantes únicos, clics por sección y el ranking de enlaces y videos. Copia `.env.example` a `.env.local` y configura `ADMIN_PASSWORD` y `ADMIN_SESSION_SECRET`.
+
+- En Vercel, conecta una base Upstash Redis y agrega `UPSTASH_REDIS_REST_URL` y `UPSTASH_REDIS_REST_TOKEN` al proyecto. También se aceptan los nombres `KV_REST_API_URL` y `KV_REST_API_TOKEN`.
+- En desarrollo local, las métricas se guardan en `data/analytics.json`.
+- Con Docker, `/app/data` está declarado como volumen y debe montarse en almacenamiento persistente.
+
 ## Getting Started
 
 First, run the development server:

@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef, type ReactNode } from "react";
+import TrackedLink from "@/components/TrackedLink";
+import TrackedSpotifyEmbed from "@/components/TrackedSpotifyEmbed";
 
 // Iconos de plataformas
 const PlatformIcons = {
@@ -133,15 +135,19 @@ export default function Music() {
 
               {/* Embed de Spotify */}
               <div className="wet-photo">
-                <iframe
-                  src="https://open.spotify.com/embed/track/16rBW4d1nbt7CddJWaUDXO?utm_source=generator&theme=0"
-                  width="100%"
-                  height="152"
-                  frameBorder="0"
-                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                  loading="lazy"
-                />
+                <TrackedSpotifyEmbed />
               </div>
+
+              <TrackedLink
+                href="https://open.spotify.com/track/16rBW4d1nbt7CddJWaUDXO"
+                analyticsCategory="music"
+                analyticsLabel="Spotify — Ya no doy más"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex w-full items-center justify-center border-t border-[#1DB954]/30 px-4 py-3 font-[family-name:var(--font-space)] text-xs font-semibold uppercase tracking-wider text-[#1DB954] transition-colors hover:bg-[#1DB954] hover:text-[#0a0c10]"
+              >
+                Abrir en Spotify
+              </TrackedLink>
 
               {/* Botón para otras plataformas */}
               <button
@@ -173,16 +179,18 @@ export default function Music() {
                 <div className="px-4 pb-4 pt-2 border-t border-[#2d3d4f]/50">
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                     {platforms.map((platform) => (
-                      <a
+                      <TrackedLink
                         key={platform.name}
                         href={platform.url}
+                        analyticsCategory="music"
+                        analyticsLabel={platform.name}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={`flex items-center gap-2 px-3 py-2 border border-[#2d3d4f]/50 text-[#c5d1de] font-[family-name:var(--font-space)] text-xs transition-all duration-300 hover:text-[#0a0c10] ${platform.hoverColor} hover:border-transparent hover:shadow-lg`}
                       >
                         <span style={{ color: platform.color }}>{platform.icon}</span>
                         <span>{platform.name}</span>
-                      </a>
+                      </TrackedLink>
                     ))}
                   </div>
                 </div>
@@ -295,9 +303,11 @@ export default function Music() {
           </p>
           <div className="flex justify-center items-center gap-6 flex-wrap">
             {platforms.map((platform) => (
-              <a
+              <TrackedLink
                 key={platform.name}
                 href={platform.url}
+                analyticsCategory="music"
+                analyticsLabel={platform.name}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#7a8a9a] hover:scale-110 transition-transform duration-300"
@@ -306,7 +316,7 @@ export default function Music() {
                 aria-label={platform.name}
               >
                 {platform.icon}
-              </a>
+              </TrackedLink>
             ))}
           </div>
         </div>

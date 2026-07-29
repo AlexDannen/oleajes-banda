@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import TrackedLink from "@/components/TrackedLink";
+import TrackedVideo from "@/components/TrackedVideo";
 
 export default function Videos() {
   const [isVisible, setIsVisible] = useState(false);
@@ -138,16 +140,7 @@ export default function Videos() {
 
                 {/* Video */}
                 <div className="aspect-video bg-[#0a0c10] overflow-hidden">
-                  <iframe
-                    src={`https://www.youtube.com/embed/${video.id}`}
-                    title={video.title}
-                    width="100%"
-                    height="100%"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="w-full h-full"
-                  />
+                  <TrackedVideo videoId={video.id} title={video.title} />
                 </div>
 
                 {/* Info del video - estilo terminal */}
@@ -169,8 +162,10 @@ export default function Videos() {
 
         {/* Link a YouTube */}
         <div className="text-center mt-16">
-          <a
+          <TrackedLink
             href={youtubeChannelUrl}
+            analyticsCategory="video"
+            analyticsLabel="Canal de YouTube"
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-3 px-8 py-4 border border-[#FF0000]/50 text-[#FF0000] font-[family-name:var(--font-space)] uppercase tracking-wider text-sm transition-all duration-300 hover:bg-[#FF0000] hover:text-[#c5d1de] hover:shadow-[0_0_30px_rgba(255,0,0,0.3)]"
@@ -179,7 +174,7 @@ export default function Videos() {
               <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
             </svg>
             Suscribite en YouTube
-          </a>
+          </TrackedLink>
         </div>
       </div>
 
