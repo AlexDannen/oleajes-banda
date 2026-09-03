@@ -22,12 +22,12 @@ const satisfy = Satisfy({
 });
 
 export const metadata: Metadata = {
-  title: "Oleajes | Banda de Rock",
-  description: "Oleajes - Banda de rock. Escucha nuestra música, mira nuestros videos y conoce más sobre nosotros.",
-  keywords: ["oleajes", "banda", "rock", "música", "argentina"],
+  title: "Oleajes | Es así — Nuevo álbum",
+  description: "Escucha Es así, el nuevo álbum de Oleajes, disponible en todas las plataformas.",
+  keywords: ["oleajes", "banda", "rock", "música", "chile", "Es así"],
   openGraph: {
-    title: "Oleajes | Banda de Rock",
-    description: "Escucha nuestra música y mira nuestros videos",
+    title: "Oleajes | Es así — Nuevo álbum",
+    description: "Escucha Es así, el nuevo álbum de Oleajes, disponible en todas las plataformas.",
     type: "website",
   },
 };

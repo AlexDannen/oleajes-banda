@@ -3,7 +3,15 @@
 import { useEffect, useRef } from "react";
 import { trackClick } from "@/lib/track-client";
 
-export default function TrackedSpotifyEmbed() {
+type TrackedSpotifyEmbedProps = {
+  trackId: string;
+  title: string;
+};
+
+export default function TrackedSpotifyEmbed({
+  trackId,
+  title,
+}: TrackedSpotifyEmbedProps) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const trackedCurrentFocus = useRef(false);
 
@@ -15,7 +23,7 @@ export default function TrackedSpotifyEmbed() {
           !trackedCurrentFocus.current
         ) {
           trackedCurrentFocus.current = true;
-          trackClick("music", "Spotify — Ya no doy más");
+          trackClick("music", `Spotify — ${title}`);
         }
       });
     }
@@ -30,13 +38,13 @@ export default function TrackedSpotifyEmbed() {
       window.removeEventListener("blur", handleWindowBlur);
       window.removeEventListener("focus", handleWindowFocus);
     };
-  }, []);
+  }, [title]);
 
   return (
     <iframe
       ref={iframeRef}
-      src="https://open.spotify.com/embed/track/16rBW4d1nbt7CddJWaUDXO?utm_source=generator&theme=0"
-      title="Ya no doy más en Spotify"
+      src={`https://open.spotify.com/embed/track/${trackId}?utm_source=generator&theme=0`}
+      title={`${title} en Spotify`}
       width="100%"
       height="152"
       frameBorder="0"

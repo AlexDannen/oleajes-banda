@@ -1,329 +1,179 @@
 "use client";
 
-import { useState, useEffect, useRef, type ReactNode } from "react";
+import Image from "next/image";
+import { useState, type ReactNode } from "react";
 import TrackedLink from "@/components/TrackedLink";
-import TrackedSpotifyEmbed from "@/components/TrackedSpotifyEmbed";
 
-// Iconos de plataformas
-const PlatformIcons = {
-  apple: (
-    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043a5.022 5.022 0 00-1.877-.726 10.496 10.496 0 00-1.564-.15c-.04-.003-.083-.01-.124-.013H5.986c-.152.01-.303.017-.455.026-.747.043-1.49.123-2.193.4-1.336.53-2.3 1.452-2.865 2.78-.192.448-.292.925-.363 1.408-.056.392-.088.785-.1 1.18 0 .032-.007.062-.01.093v12.223c.01.14.017.283.027.424.05.815.154 1.624.497 2.373.65 1.42 1.738 2.353 3.234 2.801.42.127.856.187 1.293.228.555.053 1.11.06 1.667.06h11.03a12.5 12.5 0 001.57-.1c.822-.106 1.596-.35 2.295-.81a5.046 5.046 0 001.88-2.207c.186-.42.293-.87.37-1.324.113-.675.138-1.358.137-2.04-.002-3.8 0-7.595-.003-11.393zm-6.423 3.99v5.712c0 .417-.058.827-.244 1.206-.29.59-.76.962-1.388 1.14-.35.1-.706.157-1.07.173-.95.042-1.785-.19-2.48-.86-.633-.608-.874-1.374-.766-2.23.1-.785.52-1.385 1.162-1.822.457-.31.97-.49 1.508-.593.64-.122 1.288-.19 1.93-.3.205-.036.41-.08.608-.14.133-.04.198-.14.197-.275-.005-.648 0-1.296-.002-1.943 0-.097-.025-.166-.126-.2-.166-.053-.332-.11-.503-.13-.533-.06-1.066-.115-1.6-.163-.616-.055-1.23-.127-1.835-.27-.894-.21-1.683-.607-2.266-1.332-.39-.485-.6-1.046-.69-1.66-.078-.527-.045-1.048.097-1.562.318-1.153 1.056-1.96 2.1-2.487.61-.308 1.268-.45 1.94-.515.693-.066 1.385-.053 2.072.072.665.12 1.29.354 1.85.736.608.414 1.03.964 1.25 1.66.11.35.16.71.17 1.077.01.476.004.953.005 1.43v2.866z"/>
-    </svg>
-  ),
-  youtube: (
-    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-    </svg>
-  ),
-  tidal: (
-    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12.012 3.992L8.008 7.996 12.012 12l4.004-4.004L12.012 3.992zM4.004 12L0 16.004 4.004 20.008 8.008 16.004 4.004 12zM12.012 12L8.008 16.004 12.012 20.008 16.016 16.004 12.012 12zM20.02 12L16.016 16.004 20.02 20.008 24.024 16.004 20.02 12z"/>
-    </svg>
-  ),
-  amazon: (
-    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M.045 18.02c.072-.116.187-.124.348-.022 3.636 2.11 7.594 3.166 11.87 3.166 2.852 0 5.668-.533 8.447-1.595l.315-.14c.138-.06.234-.1.293-.13.226-.088.39-.046.492.124.09.144.07.293-.06.446-.325.373-.745.71-1.26 1.01-1.86 1.083-4.12 1.71-6.78 1.882-2.66.17-5.04-.13-7.14-.91-2.1-.78-3.9-1.91-5.4-3.39-.26-.26-.3-.46-.12-.61l.005.18zM6.254 14.56c.36.852.702 1.55 1.026 2.092.198.33.46.69.78 1.08.32.39.58.62.79.68.21.06.56-.04 1.05-.29.49-.25.74-.62.74-1.12 0-.5-.24-.88-.72-1.14-.48-.26-1.19-.53-2.14-.8-.94-.28-1.56-.62-1.85-1.03-.29-.41-.43-.95-.43-1.62 0-.67.21-1.25.64-1.73.43-.48 1-.84 1.72-1.06.72-.22 1.49-.34 2.29-.34.8 0 1.48.12 2.05.35.56.23.96.62 1.19 1.17.23.55.34 1.3.34 2.25h-2.28c0-.74-.11-1.26-.32-1.58-.22-.31-.55-.47-1-.47-.45 0-.81.14-1.08.43-.27.29-.4.65-.4 1.08 0 .43.09.75.27.97.18.22.48.41.88.58.41.17.96.36 1.66.56s1.26.42 1.68.65c.42.23.77.55 1.04.97.27.41.41.99.41 1.72 0 .74-.19 1.4-.56 1.99-.37.59-.91 1.05-1.6 1.38-.7.33-1.52.49-2.46.49-.95 0-1.8-.17-2.56-.52-.76-.35-1.35-.87-1.76-1.57-.41-.7-.62-1.53-.62-2.49h2.28c0 .4.05.75.15 1.04z"/>
-    </svg>
-  ),
-  deezer: (
-    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M18.81 4.16v3.03H24V4.16h-5.19zM6.27 8.38v3.027h5.189V8.38h-5.19zm12.54 0v3.027H24V8.38h-5.19zM0 12.61v3.027h5.19v-3.03H0zm6.27 0v3.027h5.189v-3.03h-5.19zm6.27 0v3.027h5.19v-3.03h-5.19zm6.27 0v3.027H24v-3.03h-5.19zM0 16.84v3.027h5.19v-3.03H0zm6.27 0v3.027h5.189v-3.03h-5.19zm6.27 0v3.027h5.19v-3.03h-5.19zm6.27 0v3.027H24v-3.03h-5.19z"/>
-    </svg>
-  ),
-  soundcloud: (
-    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M1.175 12.225c-.051 0-.094.046-.101.1l-.233 2.154.233 2.105c.007.058.05.098.101.098.05 0 .09-.04.099-.098l.255-2.105-.27-2.154c-.009-.06-.052-.1-.084-.1zm-.899 1.025c-.051 0-.091.039-.099.085l-.16 1.13.16 1.107c.008.049.048.085.099.085.05 0 .09-.036.098-.085l.18-1.107-.18-1.13c-.008-.046-.048-.085-.098-.085zM2.28 10.96c-.059 0-.107.05-.116.107l-.196 3.314.196 3.167c.009.06.057.107.116.107.06 0 .107-.047.117-.107l.22-3.167-.22-3.314c-.01-.057-.057-.107-.117-.107zm.987.135c-.066 0-.12.057-.129.122l-.165 3.184.165 3.052c.009.066.063.12.129.12.066 0 .119-.054.129-.12l.185-3.052-.185-3.184c-.01-.065-.063-.122-.129-.122zm1.06-.314c-.073 0-.133.063-.14.135l-.156 3.498.156 3.003c.007.072.067.135.14.135.074 0 .134-.063.14-.135l.176-3.003-.176-3.498c-.006-.072-.066-.135-.14-.135zm1.055-.363c-.08 0-.146.07-.153.149l-.147 3.86.147 2.942c.007.08.073.15.153.15.08 0 .145-.07.153-.15l.166-2.942-.166-3.86c-.008-.079-.073-.15-.153-.15zm1.063-.2c-.088 0-.159.076-.166.162l-.138 4.062.138 2.878c.007.087.078.16.166.16.087 0 .158-.073.166-.16l.156-2.878-.156-4.062c-.008-.086-.079-.162-.166-.162zm1.063-.192c-.094 0-.17.083-.178.176l-.13 4.254.13 2.815c.008.093.084.176.178.176.095 0 .17-.083.178-.176l.146-2.815-.146-4.254c-.008-.093-.083-.176-.178-.176zm1.066.02c-.102 0-.184.09-.19.19l-.124 4.045.124 2.75c.006.1.088.19.19.19.101 0 .183-.09.19-.19l.138-2.75-.138-4.045c-.007-.1-.089-.19-.19-.19zm1.065-.203c-.107 0-.195.097-.203.203l-.115 4.248.115 2.686c.008.106.096.203.203.203.108 0 .195-.097.203-.203l.13-2.686-.13-4.248c-.008-.106-.095-.203-.203-.203zm1.07.13c-.114 0-.206.104-.213.217l-.108 4.118.108 2.62c.007.113.099.217.213.217.115 0 .206-.104.213-.217l.121-2.62-.121-4.118c-.007-.113-.098-.217-.213-.217zm1.066-.07c-.12 0-.217.11-.224.23l-.1 4.19.1 2.556c.007.12.104.23.224.23.121 0 .217-.11.224-.23l.112-2.556-.112-4.19c-.007-.12-.103-.23-.224-.23zm1.068-.078c-.128 0-.23.117-.238.244l-.092 4.267.092 2.49c.008.127.11.245.238.245.127 0 .23-.118.237-.245l.103-2.49-.103-4.267c-.007-.127-.11-.244-.237-.244zm1.538.153c-.106 0-.193.079-.21.184l-.084 4.073.084 2.395c.017.106.104.185.21.185.106 0 .193-.08.21-.185l.096-2.395-.096-4.073c-.017-.105-.104-.184-.21-.184zm1.075-.082c-.121 0-.22.092-.238.21l-.077 4.157.077 2.331c.018.118.117.21.238.21.121 0 .22-.092.238-.21l.086-2.33-.086-4.158c-.018-.118-.117-.21-.238-.21zm3.868 1.63c-.323 0-.63.052-.918.148-.185-2.09-1.935-3.737-4.085-3.737-.574 0-1.124.103-1.633.29-.196.072-.247.146-.249.29v7.574c.002.15.127.274.278.28h6.607c1.324 0 2.398-1.074 2.398-2.399s-1.074-2.447-2.398-2.447z"/>
-    </svg>
-  ),
-};
+type PlatformKey = "spotify" | "apple" | "youtube" | "tidal" | "amazon" | "deezer";
 
 type Platform = {
+  key: PlatformKey;
   name: string;
   icon: ReactNode;
   color: string;
-  hoverColor: string;
-  url: string;
+  hoverClass: string;
+  albumUrl: string;
+};
+
+type Track = {
+  number: number;
+  title: string;
+  duration: string;
+  explicit?: boolean;
+  links: Record<PlatformKey, string>;
+};
+
+const icons = {
+  spotify: (
+    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.51 17.308a.748.748 0 01-1.03.249c-2.82-1.724-6.37-2.113-10.55-1.158a.75.75 0 11-.334-1.462c4.574-1.045 8.5-.596 11.665 1.338a.75.75 0 01.249 1.033zm1.473-3.275a.937.937 0 01-1.29.308c-3.23-1.985-8.153-2.56-11.976-1.4a.938.938 0 11-.544-1.794c4.37-1.326 9.795-.684 13.502 1.594a.937.937 0 01.308 1.292zm.127-3.41C15.237 8.323 8.844 8.11 5.147 9.23a1.124 1.124 0 11-.652-2.151c4.245-1.287 11.306-1.037 15.762 1.607a1.125 1.125 0 01-1.147 1.936z" />
+    </svg>
+  ),
+  apple: (
+    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.79 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.1zM12.03 7.25C11.88 5.02 13.69 3.18 15.77 3c.29 2.58-2.34 4.5-3.74 4.25z" />
+    </svg>
+  ),
+  youtube: (
+    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+    </svg>
+  ),
+  tidal: (
+    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 2L8 6l4 4 4-4-4-4zM4 10l-4 4 4 4 4-4-4-4zm8 0l-4 4 4 4 4-4-4-4zm8 0l-4 4 4 4 4-4-4-4z" />
+    </svg>
+  ),
+  amazon: (
+    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M13.98 14.815c-.305.225-.746.345-1.127.345-1.575 0-2.97-1.215-2.97-3.525 0-1.8.99-2.7 2.7-2.7.45 0 .945.09 1.395.27v5.61zm3.12 2.34c-.36-.495-.735-.9-.735-1.83V9.24c0-2.58-1.74-3.45-4.005-3.45-1.275 0-2.73.345-3.705 1.065-.45.33-.39.87-.12 1.245l.705.975c.255.375.69.405 1.08.135.6-.42 1.29-.63 1.95-.63 1.08 0 1.71.405 1.71 1.5v.57c-.495-.105-1.005-.18-1.5-.18-3.015 0-5.16 1.575-5.16 4.62 0 2.43 1.53 4.05 3.72 4.05 1.305 0 2.46-.51 3.255-1.485.33.525.75.96 1.245 1.365.345.285.81.255 1.125-.06l.81-.81c.285-.285.3-.675.075-1.005h-.45zM20.76 20.04c-2.34 1.725-5.73 2.64-8.655 2.64-4.095 0-7.785-1.515-10.575-4.035-.225-.21-.03-.495.255-.33 3.015 1.755 6.735 2.805 10.59 2.805 2.595 0 5.445-.54 8.07-1.65.39-.165.72.255.315.57zm.99-1.35c-.3-.39-1.98-.18-2.73-.09-.225.03-.255-.165-.06-.3 1.29-.9 3.405-.645 3.645-.345.24.3-.06 2.4-1.275 3.42-.18.15-.36.075-.27-.135.3-.69.99-2.16.69-2.55z" />
+    </svg>
+  ),
+  deezer: (
+    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M18.81 4.16v3.03H24V4.16h-5.19zM6.27 8.38v3.027h5.189V8.38h-5.19zm12.54 0v3.027H24V8.38h-5.19zM0 12.61v3.027h5.19v-3.03H0zm6.27 0v3.027h5.189v-3.03h-5.19zm6.27 0v3.027h5.19v-3.03h-5.19zm6.27 0v3.027H24v-3.03h-5.19zM0 16.84v3.027h5.19v-3.03H0zm6.27 0v3.027h5.189v-3.03h-5.19zm6.27 0v3.027h5.19v-3.03h-5.19zm6.27 0v3.027H24v-3.03h-5.19z" />
+    </svg>
+  ),
 };
 
 const platforms: Platform[] = [
-  { name: "Apple Music", icon: PlatformIcons.apple, color: "#FA57C1", hoverColor: "hover:bg-[#FA57C1]", url: "https://geo.itunes.apple.com/album/ya-no-doy-m%C3%A1s-single/6782189160?app=itunes" },
-  { name: "YouTube Music", icon: PlatformIcons.youtube, color: "#FF0000", hoverColor: "hover:bg-[#FF0000]", url: "https://www.youtube.com/playlist?list=OLAK5uy_n_hVLOsf7kbe9EiccE3saa7foQisJxrZg" },
-  { name: "Tidal", icon: PlatformIcons.tidal, color: "#00FFFF", hoverColor: "hover:bg-[#00FFFF]", url: "https://www.tidal.com/album/535051959" },
-  { name: "Amazon Music", icon: PlatformIcons.amazon, color: "#FF9900", hoverColor: "hover:bg-[#FF9900]", url: "https://music.amazon.com/albums/B0H643T1M3" },
-  { name: "Deezer", icon: PlatformIcons.deezer, color: "#FEAA2D", hoverColor: "hover:bg-[#FEAA2D]", url: "https://www.deezer.com/album/1009990791" },
-  { name: "SoundCloud", icon: PlatformIcons.soundcloud, color: "#FF5500", hoverColor: "hover:bg-[#FF5500]", url: "https://soundcloud.com/oleajes/ya-no-doy-mas" },
+  { key: "spotify", name: "Spotify", icon: icons.spotify, color: "#1ED760", hoverClass: "hover:border-[#1ED760]/70 hover:bg-[#1ED760]/10", albumUrl: "https://open.spotify.com/album/5d63rjV9bWDZtUpRYIfCLk" },
+  { key: "apple", name: "Apple Music", icon: icons.apple, color: "#FA57C1", hoverClass: "hover:border-[#FA57C1]/70 hover:bg-[#FA57C1]/10", albumUrl: "https://music.apple.com/cl/album/es-as%C3%AD/6802748898" },
+  { key: "youtube", name: "YouTube Music", icon: icons.youtube, color: "#FF4E45", hoverClass: "hover:border-[#FF4E45]/70 hover:bg-[#FF4E45]/10", albumUrl: "https://music.youtube.com/playlist?list=OLAK5uy_l2b7vjESUbUmCNAJFh73HP0iGvKdojcrI" },
+  { key: "tidal", name: "Tidal", icon: icons.tidal, color: "#f2f4f7", hoverClass: "hover:border-white/70 hover:bg-white/10", albumUrl: "https://tidal.com/album/553466591" },
+  { key: "amazon", name: "Amazon Music", icon: icons.amazon, color: "#25D1DA", hoverClass: "hover:border-[#25D1DA]/70 hover:bg-[#25D1DA]/10", albumUrl: "https://music.amazon.com/search/Oleajes%20Es%20as%C3%AD" },
+  { key: "deezer", name: "Deezer", icon: icons.deezer, color: "#A16BFF", hoverClass: "hover:border-[#A16BFF]/70 hover:bg-[#A16BFF]/10", albumUrl: "https://www.deezer.com/album/1057319292" },
 ];
 
-type Album = {
-  name: string;
-  type: "EP" | "Album" | "Single";
-};
+const amazonSearch = (title: string) => `https://music.amazon.com/search/${encodeURIComponent(`Oleajes ${title}`)}`;
+const youtubeAlbum = "OLAK5uy_l2b7vjESUbUmCNAJFh73HP0iGvKdojcrI";
+const youtubeTrack = (id: string) => `https://music.youtube.com/watch?v=${id}&list=${youtubeAlbum}`;
+
+const tracks: Track[] = [
+  { number: 1, title: "Ya no doy más", duration: "3:11", links: { spotify: "https://open.spotify.com/track/6KGlXqV4YSvCO7MwGB3BUB", apple: "https://music.apple.com/cl/album/ya-no-doy-m%C3%A1s/6802748898?i=6802748901", youtube: youtubeTrack("yZtfng9PsdQ"), tidal: "https://tidal.com/track/553466593", amazon: amazonSearch("Ya no doy más"), deezer: "https://www.deezer.com/track/4231443292" } },
+  { number: 2, title: "Abejas", duration: "4:25", links: { spotify: "https://open.spotify.com/track/6WLo2iGTOBAei0gd2PlBA5", apple: "https://music.apple.com/cl/album/abejas/6802748898?i=6802748908", youtube: youtubeTrack("jfF7I8oVFPU"), tidal: "https://tidal.com/track/553466594", amazon: amazonSearch("Abejas"), deezer: "https://www.deezer.com/track/4231443302" } },
+  { number: 3, title: "Mujer Artificial", duration: "4:40", links: { spotify: "https://open.spotify.com/track/3J8RX9tROW64lIZlZYwwaV", apple: "https://music.apple.com/cl/album/mujer-artificial/6802748898?i=6802748909", youtube: youtubeTrack("5_TN_66oCRY"), tidal: "https://tidal.com/track/553466595", amazon: amazonSearch("Mujer Artificial"), deezer: "https://www.deezer.com/track/4231443312" } },
+  { number: 4, title: "Esto enreda todo", duration: "3:40", links: { spotify: "https://open.spotify.com/track/1qaKwW0Yt7aI9isySohmuB", apple: "https://music.apple.com/cl/album/esto-enreda-todo/6802748898?i=6802748910", youtube: youtubeTrack("LbavxGQwtm4"), tidal: "https://tidal.com/track/553466596", amazon: amazonSearch("Esto enreda todo"), deezer: "https://www.deezer.com/track/4231443322" } },
+  { number: 5, title: "Qué he formado", duration: "3:09", links: { spotify: "https://open.spotify.com/track/1E95v665KcQtclXPeLHKPz", apple: "https://music.apple.com/cl/album/qu%C3%A9-he-formado/6802748898?i=6802748911", youtube: youtubeTrack("IJVWNGEHR-8"), tidal: "https://tidal.com/track/553466597", amazon: amazonSearch("Qué he formado"), deezer: "https://www.deezer.com/track/4231443332" } },
+  { number: 6, title: "Pantera", duration: "3:56", links: { spotify: "https://open.spotify.com/track/0pwJGb7w6S8G3v9WUdUTuR", apple: "https://music.apple.com/cl/album/pantera/6802748898?i=6802748912", youtube: youtubeTrack("hSjQBmOJA-g"), tidal: "https://tidal.com/track/553466598", amazon: amazonSearch("Pantera"), deezer: "https://www.deezer.com/track/4231443342" } },
+  { number: 7, title: "Almohadas", duration: "3:21", links: { spotify: "https://open.spotify.com/track/1c7RhjvJjnvuY97AWQfF35", apple: "https://music.apple.com/cl/album/almohadas/6802748898?i=6802748913", youtube: youtubeTrack("RYHLRyfbmho"), tidal: "https://tidal.com/track/553466599", amazon: amazonSearch("Almohadas"), deezer: "https://www.deezer.com/track/4231443352" } },
+  { number: 8, title: "Rebeldía de amar", duration: "3:26", links: { spotify: "https://open.spotify.com/track/5W0x4HvWRDoQfVX282YGrb", apple: "https://music.apple.com/cl/album/rebeld%C3%ADa-de-amar/6802748898?i=6802748914", youtube: youtubeTrack("rzlotXzQOk0"), tidal: "https://tidal.com/track/553466600", amazon: amazonSearch("Rebeldía de amar"), deezer: "https://www.deezer.com/track/4231443362" } },
+  { number: 9, title: "Droga depresora", duration: "3:16", explicit: true, links: { spotify: "https://open.spotify.com/track/2MFbarCY8glBOBGiV9yE5s", apple: "https://music.apple.com/cl/album/droga-depresora/6802748898?i=6802748917", youtube: youtubeTrack("LgnB9K85koY"), tidal: "https://tidal.com/track/553466601", amazon: amazonSearch("Droga depresora"), deezer: "https://www.deezer.com/track/4231443372" } },
+  { number: 10, title: "Sí puedo", duration: "5:38", links: { spotify: "https://open.spotify.com/track/1CdVCcXEHDShoQzfR94vCj", apple: "https://music.apple.com/cl/album/s%C3%AD-puedo/6802748898?i=6802748918", youtube: youtubeTrack("u8Nq8NPnXPI"), tidal: "https://tidal.com/track/553466602", amazon: amazonSearch("Sí puedo"), deezer: "https://www.deezer.com/track/4231443382" } },
+];
 
 export default function Music() {
-  const [isMusicVisible, setIsMusicVisible] = useState(false);
-  const [showOtherPlatforms, setShowOtherPlatforms] = useState(false);
-  const musicRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsMusicVisible(entry.isIntersecting);
-      },
-      { threshold: 0.3 }
-    );
-
-    if (musicRef.current) {
-      observer.observe(musicRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const album: Album = {
-    name: "Nuevo álbum",
-    type: "Album",
-  };
+  const [openTrack, setOpenTrack] = useState<number | null>(null);
 
   return (
-    <section id="musica" className="relative py-16 sm:py-24 md:py-32 px-4 bg-[#0d1520]">
-      {/* Efecto de agua en el fondo */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0c10] via-transparent to-[#1a2634]" />
-      </div>
+    <section id="musica" className="relative overflow-hidden bg-[#0d1520] px-4 py-16 sm:py-24 md:py-32">
+      <div className="absolute inset-0 opacity-30"><div className="absolute inset-0 bg-gradient-to-b from-[#0a0c10] via-transparent to-[#1a2634]" /></div>
+      <div className="city-pattern absolute bottom-0 left-0 right-0 h-48 opacity-20" />
+      <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-[#4a9ebb]/40 to-transparent" />
 
-      {/* Patrón de ciudad sumergida */}
-      <div className="absolute bottom-0 left-0 right-0 h-48 city-pattern opacity-20" />
+      <div className="relative mx-auto max-w-5xl">
+        <header className="mb-12 text-center">
+          <span className="neon-flicker font-[family-name:var(--font-space)] text-xs uppercase tracking-[0.3em] text-[#4a9ebb]">Ya disponible</span>
+          <h2 className="mt-4 font-[family-name:var(--font-playfair)] text-4xl font-bold text-[#c5d1de] sm:text-5xl md:text-6xl">Es así</h2>
+          <p className="mt-4 font-[family-name:var(--font-space)] text-sm uppercase tracking-[0.22em] text-[#7a8a9a]">El nuevo álbum de Oleajes</p>
+        </header>
 
-      {/* Línea de agua superior */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#4a9ebb]/40 to-transparent" />
+        <div className="relative mb-14 border border-[#4a9ebb]/25 bg-[#080d13]/85 p-4 shadow-[0_28px_90px_rgba(0,0,0,0.35)] backdrop-blur-sm sm:p-6 lg:p-8">
+          <div className="absolute -left-px -top-px h-12 w-12 border-l border-t border-[#7ec8e3]/70" />
+          <div className="absolute -bottom-px -right-px h-12 w-12 border-b border-r border-[#7ec8e3]/70" />
+          <div className="grid gap-7 md:grid-cols-[minmax(260px,380px)_1fr] md:items-center lg:gap-12">
+            <div className="group relative mx-auto aspect-square w-full max-w-[380px] overflow-hidden bg-[#111923]">
+              <div className="absolute -inset-8 z-0 bg-[#4a9ebb]/20 blur-3xl" />
+              <Image src="https://i.scdn.co/image/ab67616d0000e1a34c10e9b4a511dd9d02c21391" alt="Portada de Es así, álbum de Oleajes" width={640} height={640} sizes="(max-width: 768px) 90vw, 380px" className="wet-photo relative z-10 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]" />
+              <div className="pointer-events-none absolute inset-0 z-20 ring-1 ring-inset ring-white/10" />
+            </div>
 
-      <div className="relative max-w-4xl mx-auto">
-        {/* Header de sección */}
-        <div className="text-center mb-12">
-          <span className="font-[family-name:var(--font-space)] text-[#4a9ebb] text-xs uppercase tracking-[0.3em] neon-flicker">
-            Escuchanos
-          </span>
-          <h2 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl md:text-6xl font-bold mt-4 mb-6 text-[#c5d1de]">
-            Nuestra Música
-          </h2>
-          <p className="font-[family-name:var(--font-space)] text-[#7a8a9a] text-sm mb-6">
-            Nuestro nuevo single ya está disponible — y el álbum, muy pronto
-          </p>
-          <div className="flex items-center justify-center gap-4">
-            <span className="w-16 h-px bg-gradient-to-r from-transparent to-[#4a9ebb]/50" />
-            <span className="w-2 h-2 bg-[#4a9ebb] animate-pulse" />
-            <span className="w-16 h-px bg-gradient-to-l from-transparent to-[#4a9ebb]/50" />
+            <div>
+              <p className="mb-3 font-mono text-xs uppercase tracking-[0.22em] text-[#4a9ebb]">Álbum · 2026</p>
+              <h3 className="font-[family-name:var(--font-playfair)] text-4xl font-bold text-[#e4edf5] sm:text-5xl lg:text-6xl">Es así</h3>
+              <p className="mt-2 font-[family-name:var(--font-space)] text-lg text-[#a8b7c5]">Oleajes</p>
+              <p className="mt-5 max-w-md font-[family-name:var(--font-space)] text-sm leading-7 text-[#7a8a9a]">Diez canciones. Treinta y ocho minutos de Oleajes. El disco completo ya está afuera.</p>
+              <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[11px] uppercase tracking-[0.15em] text-[#718293]">
+                <span>10 canciones</span><span aria-hidden="true" className="h-1 w-1 bg-[#4a9ebb]" /><span>38:48</span><span aria-hidden="true" className="h-1 w-1 bg-[#4a9ebb]" /><span>Vivario Records</span>
+              </div>
+              <div className="mt-7 grid grid-cols-2 gap-2 sm:grid-cols-3">
+                {platforms.map((platform) => (
+                  <TrackedLink key={platform.key} href={platform.albumUrl} analyticsCategory="music" analyticsLabel={`${platform.name} — Es así (álbum)`} target="_blank" rel="noopener noreferrer" className={`flex min-h-11 items-center gap-2 border border-[#2d3d4f]/70 px-3 py-2 font-[family-name:var(--font-space)] text-xs text-[#c5d1de] transition-all ${platform.hoverClass}`}>
+                    <span style={{ color: platform.color }}>{platform.icon}</span><span>{platform.name}</span>
+                  </TrackedLink>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Single - Ya no doy más */}
-        <div className="max-w-xl mx-auto mb-12">
-          <div className="group relative">
-            <div className="absolute -inset-1 bg-gradient-to-r from-[#4a9ebb]/20 to-[#7ec8e3]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
+        <div>
+          <div className="mb-5 flex items-end justify-between gap-4 border-b border-[#2d3d4f]/60 pb-4">
+            <div><p className="font-mono text-[10px] uppercase tracking-[0.24em] text-[#4a9ebb]">Lado A + Lado B</p><h3 className="mt-2 font-[family-name:var(--font-playfair)] text-3xl text-[#d7e1ea]">Canciones</h3></div>
+            <span className="hidden font-mono text-[10px] uppercase tracking-[0.18em] text-[#667788] sm:block">Elige dónde escuchar</span>
+          </div>
 
-            <div className="relative bg-[#0a0c10]/80 border border-[#2d3d4f]/50 backdrop-blur-sm overflow-hidden z-10">
-              {/* Header del single */}
-              <div className="flex items-center gap-4 px-4 py-3 border-b border-[#2d3d4f]/30">
-                <span className="font-mono text-[#4a9ebb] text-xs px-2 py-1 border border-[#4a9ebb]/50">
-                  Single
-                </span>
-                <span className="font-[family-name:var(--font-space)] text-[#7a8a9a] text-xs uppercase tracking-wider">
-                  Ya disponible
-                </span>
-              </div>
-
-              {/* Embed de Spotify */}
-              <div className="wet-photo">
-                <TrackedSpotifyEmbed />
-              </div>
-
-              <TrackedLink
-                href="https://open.spotify.com/track/16rBW4d1nbt7CddJWaUDXO"
-                analyticsCategory="music"
-                analyticsLabel="Spotify — Ya no doy más"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex w-full items-center justify-center border-t border-[#1DB954]/30 px-4 py-3 font-[family-name:var(--font-space)] text-xs font-semibold uppercase tracking-wider text-[#1DB954] transition-colors hover:bg-[#1DB954] hover:text-[#0a0c10]"
-              >
-                Abrir en Spotify
-              </TrackedLink>
-
-              {/* Botón para otras plataformas */}
-              <button
-                onClick={() => setShowOtherPlatforms(!showOtherPlatforms)}
-                className="w-full px-4 py-2 flex items-center justify-center gap-2 border-t border-[#2d3d4f]/30 transition-colors hover:bg-[#0d1520]/50"
-              >
-                <span className="glow-pulse-text font-[family-name:var(--font-space)] text-xs uppercase tracking-wider font-semibold">
-                  En todas las plataformas
-                </span>
-                <svg
-                  className={`w-3 h-3 text-[#4a9ebb] transition-transform duration-300 ${
-                    showOtherPlatforms ? "rotate-180" : ""
-                  }`}
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
-              </button>
-
-              {/* Panel desplegable con otras plataformas */}
-              <div
-                className={`overflow-hidden transition-all duration-300 ${
-                  showOtherPlatforms ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-                }`}
-              >
-                <div className="px-4 pb-4 pt-2 border-t border-[#2d3d4f]/50">
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                    {platforms.map((platform) => (
-                      <TrackedLink
-                        key={platform.name}
-                        href={platform.url}
-                        analyticsCategory="music"
-                        analyticsLabel={platform.name}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`flex items-center gap-2 px-3 py-2 border border-[#2d3d4f]/50 text-[#c5d1de] font-[family-name:var(--font-space)] text-xs transition-all duration-300 hover:text-[#0a0c10] ${platform.hoverColor} hover:border-transparent hover:shadow-lg`}
-                      >
-                        <span style={{ color: platform.color }}>{platform.icon}</span>
-                        <span>{platform.name}</span>
-                      </TrackedLink>
-                    ))}
+          <ol className="border-x border-t border-[#2d3d4f]/50">
+            {tracks.map((track) => {
+              const isOpen = openTrack === track.number;
+              return (
+                <li key={track.number} className="border-b border-[#2d3d4f]/50 bg-[#0a0c10]/55 transition-colors hover:bg-[#111923]/85">
+                  <div className="grid min-h-16 grid-cols-[2rem_1fr_auto] items-center gap-3 px-3 sm:grid-cols-[2.5rem_1fr_auto_auto] sm:px-5">
+                    <span className="font-mono text-xs text-[#4a9ebb]/75">{String(track.number).padStart(2, "0")}</span>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="truncate font-[family-name:var(--font-space)] text-sm font-medium text-[#c5d1de] sm:text-base">{track.title}</span>
+                        {track.explicit && <span className="border border-[#667788] px-1 font-mono text-[8px] leading-3 text-[#8998a7]" title="Contenido explícito">E</span>}
+                      </div>
+                      <span className="font-mono text-[10px] uppercase tracking-wider text-[#657585] sm:hidden">{track.duration}</span>
+                    </div>
+                    <span className="hidden font-mono text-xs text-[#657585] sm:block">{track.duration}</span>
+                    <button type="button" onClick={() => setOpenTrack(isOpen ? null : track.number)} aria-label={`Plataformas para ${track.title}`} aria-expanded={isOpen} aria-controls={`track-platforms-${track.number}`} className="flex min-h-10 items-center gap-2 px-2 font-[family-name:var(--font-space)] text-[10px] font-semibold uppercase tracking-[0.12em] text-[#8e9dac] transition-colors hover:text-[#7ec8e3] sm:px-3">
+                      <span className="hidden sm:inline">Plataformas</span>
+                      <svg className={`h-4 w-4 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+                      <span className="sr-only"> para {track.title}</span>
+                    </button>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        {/* Album */}
-        <div ref={musicRef} className="max-w-xl mx-auto">
-          <div className="group relative">
-            <div className="absolute -inset-1 bg-gradient-to-r from-[#4a9ebb]/20 to-[#7ec8e3]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
-
-            {/* Vinilo móvil - se asoma desde el borde superior de la caja */}
-            <div className={`md:hidden absolute left-1/2 w-44 h-44 transition-all duration-700 delay-500 ease-out pointer-events-none ${isMusicVisible ? 'top-0 -translate-x-1/2 -translate-y-1/2 opacity-100 z-0' : 'top-0 -translate-x-1/2 translate-y-[10%] opacity-0 -z-10'}`}>
-              <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-[0_0_15px_rgba(74,158,187,0.4)]">
-                <circle cx="50" cy="50" r="48" fill="#1a1a1a" />
-                <circle cx="50" cy="50" r="48" fill="url(#vinylShineMobile)" />
-                <circle cx="50" cy="50" r="44" fill="none" stroke="#252525" strokeWidth="0.5" />
-                <circle cx="50" cy="50" r="38" fill="none" stroke="#252525" strokeWidth="0.5" />
-                <circle cx="50" cy="50" r="32" fill="none" stroke="#252525" strokeWidth="0.5" />
-                <circle cx="50" cy="50" r="26" fill="none" stroke="#252525" strokeWidth="0.5" />
-                <circle cx="50" cy="50" r="15" fill="#4a9ebb" />
-                <circle cx="50" cy="50" r="14" fill="url(#labelGradientMobile)" />
-                <circle cx="50" cy="50" r="3" fill="#0a0c10" />
-                <text x="50" y="48" textAnchor="middle" fill="#0a0c10" fontSize="5" fontWeight="bold" fontFamily="sans-serif">OLEAJES</text>
-                <text x="50" y="55" textAnchor="middle" fill="#0a0c10" fontSize="3" fontFamily="sans-serif">ALBUM</text>
-                <defs>
-                  <linearGradient id="vinylShineMobile" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#333" stopOpacity="0.3" />
-                    <stop offset="50%" stopColor="#111" stopOpacity="0" />
-                    <stop offset="100%" stopColor="#333" stopOpacity="0.2" />
-                  </linearGradient>
-                  <linearGradient id="labelGradientMobile" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#5fb3d4" />
-                    <stop offset="100%" stopColor="#3a8aa8" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
-
-            {/* Vinilo desktop - aparece al lado en hover */}
-            <div className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 w-64 h-64 transition-all duration-500 ease-out translate-x-[0%] group-hover:translate-x-[65%] z-0 pointer-events-none">
-              {/* Disco de vinilo */}
-              <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]">
-                {/* Base del vinilo */}
-                <circle cx="50" cy="50" r="48" fill="#1a1a1a" />
-                {/* Brillo sutil */}
-                <circle cx="50" cy="50" r="48" fill="url(#vinylShine)" />
-                {/* Surcos del vinilo */}
-                <circle cx="50" cy="50" r="44" fill="none" stroke="#252525" strokeWidth="0.5" />
-                <circle cx="50" cy="50" r="40" fill="none" stroke="#252525" strokeWidth="0.5" />
-                <circle cx="50" cy="50" r="36" fill="none" stroke="#252525" strokeWidth="0.5" />
-                <circle cx="50" cy="50" r="32" fill="none" stroke="#252525" strokeWidth="0.5" />
-                <circle cx="50" cy="50" r="28" fill="none" stroke="#252525" strokeWidth="0.5" />
-                <circle cx="50" cy="50" r="24" fill="none" stroke="#252525" strokeWidth="0.5" />
-                <circle cx="50" cy="50" r="20" fill="none" stroke="#252525" strokeWidth="0.5" />
-                {/* Etiqueta central */}
-                <circle cx="50" cy="50" r="15" fill="#4a9ebb" />
-                <circle cx="50" cy="50" r="14" fill="url(#labelGradient)" />
-                {/* Agujero central */}
-                <circle cx="50" cy="50" r="3" fill="#0a0c10" />
-                {/* Texto en la etiqueta */}
-                <text x="50" y="48" textAnchor="middle" fill="#0a0c10" fontSize="4" fontWeight="bold" fontFamily="sans-serif">OLEAJES</text>
-                <text x="50" y="54" textAnchor="middle" fill="#0a0c10" fontSize="2.5" fontFamily="sans-serif">ALBUM</text>
-                {/* Gradientes */}
-                <defs>
-                  <linearGradient id="vinylShine" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#333" stopOpacity="0.3" />
-                    <stop offset="50%" stopColor="#111" stopOpacity="0" />
-                    <stop offset="100%" stopColor="#333" stopOpacity="0.2" />
-                  </linearGradient>
-                  <linearGradient id="labelGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#5fb3d4" />
-                    <stop offset="100%" stopColor="#3a8aa8" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
-
-            <div className="relative bg-[#0a0c10]/80 border border-[#2d3d4f]/50 backdrop-blur-sm overflow-hidden z-10">
-              {/* Header del album */}
-              <div className="flex items-center gap-4 px-4 py-3 border-b border-[#2d3d4f]/30">
-                <span className="font-mono text-[#4a9ebb] text-xs px-2 py-1 border border-[#4a9ebb]/50">
-                  {album.type}
-                </span>
-              </div>
-
-              <div className="wet-photo wipe-wave min-h-[352px] flex items-center justify-center px-6 py-12 bg-gradient-to-b from-[#0d1520] via-[#111923] to-[#0a0c10]">
-                <div className="relative z-10 text-center max-w-sm">
-                  <p className="font-[family-name:var(--font-space)] text-[#4a9ebb] text-xs uppercase tracking-[0.3em] mb-4">
-                    Muy pronto
-                  </p>
-                  <h3 className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl text-[#c5d1de] font-bold mb-5">
-                    Nuevo álbum
-                  </h3>
-                  <p className="font-[family-name:var(--font-space)] text-[#7a8a9a] text-sm leading-7">
-                    Estamos trabajando para usted.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Iconos de plataformas */}
-        <div className="mt-16 text-center">
-          <p className="font-[family-name:var(--font-space)] text-[#7a8a9a] text-xs uppercase tracking-wider mb-6">
-            Disponible en todas las plataformas
-          </p>
-          <div className="flex justify-center items-center gap-6 flex-wrap">
-            {platforms.map((platform) => (
-              <TrackedLink
-                key={platform.name}
-                href={platform.url}
-                analyticsCategory="music"
-                analyticsLabel={platform.name}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#7a8a9a] hover:scale-110 transition-transform duration-300"
-                style={{ color: platform.color }}
-                title={platform.name}
-                aria-label={platform.name}
-              >
-                {platform.icon}
-              </TrackedLink>
-            ))}
-          </div>
+                  <div id={`track-platforms-${track.number}`} aria-hidden={!isOpen} inert={!isOpen} className={`grid transition-[grid-template-rows] duration-300 ${isOpen ? "visible grid-rows-[1fr]" : "invisible grid-rows-[0fr]"}`}>
+                    <div className="overflow-hidden">
+                      <div className="grid grid-cols-2 gap-2 border-t border-[#2d3d4f]/35 bg-[#080d13]/70 p-3 sm:grid-cols-3 sm:px-5 lg:grid-cols-6">
+                        {platforms.map((platform) => (
+                          <TrackedLink key={platform.key} href={track.links[platform.key]} analyticsCategory="music" analyticsLabel={`${platform.name} — ${track.title}`} target="_blank" rel="noopener noreferrer" className={`flex min-h-10 items-center gap-2 border border-[#2d3d4f]/60 px-3 py-2 font-[family-name:var(--font-space)] text-[11px] text-[#aebbc7] transition-all ${platform.hoverClass}`}>
+                            <span style={{ color: platform.color }}>{platform.icon}</span><span className="truncate">{platform.name}</span>
+                          </TrackedLink>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
+          <p className="mt-5 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-[#536474]">℗ 2026 Vivario Records</p>
         </div>
       </div>
-
-      {/* Ondas de agua inferiores */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 water-ripple" />
+      <div className="water-ripple absolute bottom-0 left-0 right-0 h-24" />
     </section>
   );
 }
