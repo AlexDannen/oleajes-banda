@@ -104,7 +104,7 @@ export default function Music() {
           <div className="grid gap-7 md:grid-cols-[minmax(260px,380px)_1fr] md:items-center lg:gap-12">
             <div className="group relative mx-auto aspect-square w-full max-w-[380px] overflow-hidden bg-[#111923]">
               <div className="absolute -inset-8 z-0 bg-[#4a9ebb]/20 blur-3xl" />
-              <Image src="https://i.scdn.co/image/ab67616d0000e1a34c10e9b4a511dd9d02c21391" alt="Portada de Es así, álbum de Oleajes" width={640} height={640} sizes="(max-width: 768px) 90vw, 380px" className="wet-photo relative z-10 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]" />
+              <Image src="/images/portada-oleajes.png" alt="Portada de Es así, álbum de Oleajes" width={2999} height={2999} sizes="(max-width: 768px) 90vw, 380px" className="wet-photo relative z-10 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.025]" />
               <div className="pointer-events-none absolute inset-0 z-20 ring-1 ring-inset ring-white/10" />
             </div>
 
