@@ -29,6 +29,12 @@ const photos = [
   { file: "oleajes-foto-01.jpg", label: "Fotografía 01" },
   { file: "oleajes-foto-02.jpg", label: "Fotografía 02" },
   { file: "oleajes-foto-03.jpg", label: "Fotografía 03" },
+  { file: "oleajes-foto-04.jpg", label: "Fotografía 04" },
+  { file: "oleajes-foto-05.jpg", label: "Fotografía 05" },
+  { file: "oleajes-foto-06.jpg", label: "Fotografía 06" },
+  { file: "oleajes-foto-07.jpg", label: "Fotografía 07" },
+  { file: "oleajes-foto-08.jpg", label: "Fotografía 08" },
+  { file: "oleajes-foto-09.jpg", label: "Fotografía 09" },
 ];
 
 export default function PressPage() {
@@ -54,7 +60,7 @@ export default function PressPage() {
                 Escuchar Es así <span aria-hidden="true">↗</span>
               </a>
             </div>
-            <p className={styles.note}>ZIP · 44 MB · Documentos, 3 fotografías, portada y logo</p>
+            <p className={styles.note}>ZIP · 57 MB · Documentos, 9 fotografías, portada y logo</p>
             <p className={styles.contact}>
               Prensa y entrevistas<br />
               <a href="mailto:oleajesbanda@gmail.com">oleajesbanda@gmail.com</a>
