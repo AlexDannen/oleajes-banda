@@ -1,4 +1,5 @@
 import TrackedLink from "@/components/TrackedLink";
+import Link from "next/link";
 
 export default function Footer() {
   const socialLinks = [
@@ -74,6 +75,15 @@ export default function Footer() {
           >
             alexdannen@gmail.com
           </a>
+        </div>
+
+        <div className="mb-12 text-base text-[#a8b7c5]">
+          <Link href="/prensa" className="text-[#7ec8e3] underline underline-offset-4 hover:text-[#c5d1de]">
+            Kit de prensa y descargas
+          </Link>
+          <p className="mt-3">
+            Prensa: <a href="mailto:oleajesbanda@gmail.com" className="break-all hover:text-[#7ec8e3]">oleajesbanda@gmail.com</a>
+          </p>
         </div>
 
         {/* Línea decorativa */}

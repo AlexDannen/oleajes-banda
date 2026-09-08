@@ -16,12 +16,13 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { href: "#inicio", label: "Inicio" },
-    { href: "#musica", label: "Música" },
-    { href: "#tocatas", label: "Tocatas" },
-    { href: "#videos", label: "Videos" },
-    { href: "#nosotros", label: "Nosotros" },
-    { href: "#contacto", label: "Contacto" },
+    { href: "/#inicio", label: "Inicio" },
+    { href: "/#musica", label: "Música" },
+    { href: "/#tocatas", label: "Tocatas" },
+    { href: "/#videos", label: "Videos" },
+    { href: "/#nosotros", label: "Nosotros" },
+    { href: "/prensa", label: "Prensa" },
+    { href: "/#contacto", label: "Contacto" },
   ];
 
   return (
@@ -36,20 +37,20 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link
-            href="#inicio"
+            href="/#inicio"
             className="font-[family-name:var(--font-playfair)] text-xl sm:text-2xl md:text-3xl font-bold tracking-wide text-[#c5d1de] glitch-hover"
           >
             Oleajes
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-6">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className={`relative text-[#7a8a9a] hover:text-[#c5d1de] transition-colors duration-200 text-sm uppercase tracking-widest font-[family-name:var(--font-space)] group ${
-                  link.href === "#tocatas" ? "text-[#4a9ebb]" : ""
+                  link.href === "/#tocatas" ? "text-[#4a9ebb]" : ""
                 }`}
               >
                 {link.label}
@@ -61,8 +62,10 @@ export default function Navbar() {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 relative z-50"
-            aria-label="Toggle menu"
+            className="lg:hidden p-2 relative z-50"
+            aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
           >
             <div className="w-7 h-6 flex flex-col justify-between">
               <span
@@ -86,21 +89,23 @@ export default function Navbar() {
 
         {/* Mobile Navigation */}
         <div
-          className={`md:hidden fixed inset-0 bg-[#0a0c10]/98 transition-all duration-500 ${
+          id="mobile-navigation"
+          inert={!isOpen}
+          className={`lg:hidden fixed inset-0 overflow-y-auto bg-[#0a0c10]/98 transition-all duration-500 ${
             isOpen ? "opacity-100 visible" : "opacity-0 invisible"
           }`}
         >
           {/* Rain effect in mobile menu */}
           <div className="absolute inset-0 rain-effect opacity-50" />
 
-          <div className="relative flex flex-col items-center justify-center h-full space-y-8">
+          <div className="relative flex min-h-full flex-col items-center justify-center gap-6 pb-10 pt-24">
             {navLinks.map((link, index) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
                 className={`text-3xl font-[family-name:var(--font-playfair)] tracking-wide transition-colors ${
-                  link.href === "#tocatas"
+                  link.href === "/#tocatas"
                     ? "text-[#4a9ebb] hover:text-[#7ec8e3]"
                     : "text-[#c5d1de] hover:text-[#4a9ebb]"
                 }`}
