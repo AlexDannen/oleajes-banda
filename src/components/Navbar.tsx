@@ -21,7 +21,6 @@ export default function Navbar() {
     { href: "/#tocatas", label: "Tocatas" },
     { href: "/#videos", label: "Videos" },
     { href: "/#nosotros", label: "Nosotros" },
-    { href: "/prensa", label: "Prensa" },
     { href: "/#contacto", label: "Contacto" },
   ];
 

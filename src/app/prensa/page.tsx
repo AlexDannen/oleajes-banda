@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
   description:
     "Kit de prensa de Oleajes: dossier, biografía, comunicado de Es así, fotografías, portada y logo para descargar.",
   alternates: { canonical: "https://oleajes-banda.vercel.app/prensa" },
+  robots: { index: false, follow: false },
   openGraph: {
     title: "Prensa | Oleajes — Es así",
     description: "Material de prensa y descargas del álbum debut de Oleajes.",
@@ -131,7 +133,7 @@ export default function PressPage() {
           </div>
           <div className={styles.links}>
             <h3>Enlaces oficiales</h3>
-            <a href="/#musica">Es así en todas las plataformas ↗</a>
+            <Link href="/#musica">Es así en todas las plataformas ↗</Link>
             <a href="https://instagram.com/oleajes.banda" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
             <a href="https://www.youtube.com/@OleajesBanda" target="_blank" rel="noopener noreferrer">YouTube ↗</a>
             <a href="mailto:oleajesbanda@gmail.com">Contacto de prensa ↗</a>
