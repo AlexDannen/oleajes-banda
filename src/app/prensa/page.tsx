@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 const documents = [
   { name: "Dossier de prensa", file: "oleajes-dossier-2026.pdf", detail: "PDF · 10 MB" },
   { name: "Biografía", file: "oleajes-biografia.pdf", detail: "PDF · 67 KB" },
-  { name: "Comunicado de Es así", file: "oleajes-es-asi-comunicado.docx", detail: "Word · 12,1 MB" },
+  { name: "Comunicado de Es así", file: "oleajes-es-asi-comunicado.docx", detail: "Word · 2,9 MB" },
   { name: "Enlaces y créditos", file: "oleajes-enlaces-y-creditos.txt", detail: "Texto · 1 KB" },
 ];
 
@@ -62,7 +62,7 @@ export default function PressPage() {
                 Escuchar Es así <span aria-hidden="true">↗</span>
               </a>
             </div>
-            <p className={styles.note}>ZIP · 57 MB · Documentos, 9 fotografías, portada y logo</p>
+            <p className={styles.note}>ZIP · 48,3 MB · Documentos, 9 fotografías, portada y logo</p>
             <p className={styles.contact}>
               Prensa y entrevistas<br />
               <a href="mailto:oleajesbanda@gmail.com">oleajesbanda@gmail.com</a>
